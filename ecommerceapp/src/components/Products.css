@@ -1,0 +1,11 @@
+.productGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.productGridItem {
+  flex-basis: calc(20% - 20px);
+  margin: 8px;
+  margin-bottom: 20px;
+}

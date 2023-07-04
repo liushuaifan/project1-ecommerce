@@ -1,0 +1,17 @@
+.productImage {
+  height: 200px;
+  width: 150px;
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px;
+}
+
+.buttonContainer > button {
+  flex: 0 0 45%;
+}
