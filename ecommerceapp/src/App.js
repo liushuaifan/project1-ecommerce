@@ -26,13 +26,13 @@ function App() {
         <Routes>
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/UpdatePassword" element={<UpdatePassWord />} />
+        <Route path="/updatePassword" element={<UpdatePassWord />} />
         </Routes>
 
         </div>
         <Routes>
           <Route path="/" element={<Products />} />
-            <Route path=":ProductId" element={<Product />} />
+            {/* <Route path=":ProductId" element={<Product />} /> */}
           <Route path="/CreateProducts" element={<CreateProducts />} />
           <Route path="/Cart" element={<Cart />} />
         </Routes>
