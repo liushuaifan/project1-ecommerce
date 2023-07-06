@@ -1,0 +1,23 @@
+.productDetail {
+  margin: 50px;
+}
+
+.detailImage {
+  height: 400px;
+  width: 400px;
+}
+
+.productDetailContent {
+  display: flex;
+  /* border: 1px black solid; */
+  padding: 100px;
+}
+
+.textContent {
+  padding: 30px;
+  margin-left: 50px;
+}
+
+.contentButton {
+  display: flex;
+}

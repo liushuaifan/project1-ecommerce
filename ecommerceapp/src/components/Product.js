@@ -1,13 +1,21 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Typography } from '@material-ui/core'
 import Button from '@mui/material/Button';
-import './Product.css';
+import './style/Product.css';
 
 function Product({product}) {
+
+  const navigate = new useNavigate();
+
+  const handleClick = (product) => {
+    navigate(`/Product/${product.id}`);
+  }
+
   return (
     <div>
       <Card >
-        <img className="productImage"src={product.img} alt="Apple Watch" />
+        <img className="productImage"src={product.img} alt="Apple Watch" onClick={()=> handleClick(product)}/>
         <CardContent>
           <div>
             <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant='body2' color='textSecondary' />
@@ -20,10 +28,8 @@ function Product({product}) {
           <Button variant="contained" fullWidth>Add</Button>
           <Button variant="outlined" fullWidth>Edit</Button>
         </div>
-
       </Card>
     </div>
-   
   )
 }
 

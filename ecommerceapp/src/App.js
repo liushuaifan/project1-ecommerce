@@ -4,7 +4,7 @@ import React from "react";
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Products from "./components/Products"
-import Product from "./components/Product"
+import ProductDetail from "./components/ProductDetail"
 import CreateProducts from "./components/CreateProducts"
 import Cart from "./components/Cart"
 import UpdatePassWord from "./components/updatePassword";
@@ -17,8 +17,6 @@ function App() {
   return (
     <div className="App">
      
-
-
      <BrowserRouter>
         <Navbar />
         <div className="container">
@@ -32,7 +30,7 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Products />} />
-            {/* <Route path=":ProductId" element={<Product />} /> */}
+          <Route path="/Product/:ProductId" element={<ProductDetail />} />
           <Route path="/CreateProducts" element={<CreateProducts />} />
           <Route path="/Cart" element={<Cart />} />
         </Routes>

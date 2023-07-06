@@ -1,3 +1,7 @@
+.productContent {
+  margin: 50px;
+}
+
 .productGrid {
   display: flex;
   flex-wrap: wrap;
@@ -8,4 +12,14 @@
   flex-basis: calc(20% - 20px);
   margin: 8px;
   margin-bottom: 20px;
+}
+
+.productNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+Button {
+  width: 200px;
 }
