@@ -12,7 +12,7 @@ function Signin() {
         <input  placeholder="youremail@gmail.com" id="email" name="email" />
         <label htmlFor="password">Password</label>
         <input type="password" placeholder="********" id="password" name="password" />
-        <button type="submit" className='submitButton'>Sign In  </button>
+        <button type="submit" className='submitButton' >Sign In  </button>
       </form>
 
       <div className='formAgreement'>

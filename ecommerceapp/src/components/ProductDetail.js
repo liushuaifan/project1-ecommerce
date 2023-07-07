@@ -24,6 +24,7 @@ function ProductDetail() {
       { id:9 , name: 'Apple Watch', price: '$999.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
       { id:10 , name: 'Apple Watch', price: '$1099.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
     ]
+    console.log(ProductId);
     setProduct(products.find(product => product.id === Number(ProductId)))
   }, [ProductId]);
 
