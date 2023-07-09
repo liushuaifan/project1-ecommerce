@@ -45,31 +45,23 @@ const db = require('../models');
 exports.signup = async function (req, res, next) {
   try {
     let user = await db.User.create(req.body);
-    let { id,email, username,password, profileImageUrl } = user;
-    // let token = await jwt.sign(
-    //   {
-    //     id,
-    //     username,
-    //     profileImageUrl
-    //   },
-    //   process.env.JWT_SECRET_KEY
-    // );
-    // return res.status(200).json({
-    //   id,
-    //   username,
-    //   profileImageUrl,
-    //   // token
-    // });
-    const post = new user({
-      email: req.body.email,
-      password: req.body.password,
-      username: req.body.username,
-      profileImageUrl: req.body.profileImageUrl,
-
+    let { id, username, profileImageUrl } = user;
+    return res.status(200).json({
+      id,
+      username,
+      profileImageUrl,
+      // token
     });
+    // const post = new user({
+    //   email: req.body.email,
+    //   password: req.body.password,
+    //   username: req.body.username,
+    //   profileImageUrl: req.body.profileImageUrl,
 
-    await post.save();
-    res.status(200).json(post);
+    // });
+
+    // await post.save();
+    // res.status(200).json(post);
   } catch (err) {
     // see what kind of error
     // if it is a certain error
