@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String
   },
+  adminstrator:{
+    type:Boolean
+  }
   // messages: [
   //   {
   //     type: mongoose.Schema.Types.ObjectId,
@@ -40,14 +43,14 @@ userSchema.pre('save', async function (next) {
   }
 });
 
-// userSchema.methods.comparePassword = async function (candidatePassword, next) {
-//   try {
-//     let isMatched = await bcrypt.compare(candidatePassword, this.password);
-//     return isMatched;
-//   } catch (err) {
-//     return next(err);
-//   }
-// };
+userSchema.methods.comparePassword = async function (candidatePassword, next) {
+  try {
+    let isMatched = await bcrypt.compare(candidatePassword, this.password);
+    return isMatched;
+  } catch (err) {
+    return next(err);
+  }
+};
 
 const User = mongoose.model('User', userSchema);
 
