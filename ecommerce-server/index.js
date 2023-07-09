@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./handlers/error');
 const authRoutes = require('./routes/auth');
-// const messageRoutes = require('./routes/messages');
+const productRoutes = require('./routes/products');
 // const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
 // const db = require('./models'); 
 
@@ -14,11 +14,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/auth', authRoutes);
-// app.use('/api/users/:id/messages',
-//   loginRequired,
-//   ensureCorrectUser,
-//   messageRoutes
-// );
+app.use('/api/users/:id/products',
+  productRoutes
+);
 
 // app.get('/api/messages', loginRequired, async function (req, res, next) {
 //   try {

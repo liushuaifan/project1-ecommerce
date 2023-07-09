@@ -11,28 +11,26 @@ const productSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    required: true
+    // required: true
   },
   price: {
     type: Number,
-    required: true
+    // required: true
   },
   quantity: {
     type: Number,
-    required: true
+    // required: true
   },
   imageurl : {
     type: String,
-    required: true
-  }
-  // messages: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Product'
-  //   }
-  // ]
-});
+    // required: true
+  },
+  user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  });
 
-const Product = mongoose.model('Product', userSchema);
+const Product = mongoose.model('Product', productSchema);
 
 module.exports = Product;

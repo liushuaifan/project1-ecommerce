@@ -21,13 +21,13 @@ const userSchema = new mongoose.Schema({
   },
   adminstrator:{
     type:Boolean
-  }
-  // messages: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Product'
-  //   }
-  // ]
+  },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product'
+    }
+  ]
 });
 
 userSchema.pre('save', async function (next) {
