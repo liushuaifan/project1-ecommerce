@@ -10,11 +10,9 @@ import Cart from "./components/Cart"
 import UpdatePassWord from "./components/updatePassword";
 import SignIn from "./components/Signin"
 import SignUp from "./components/Signup"
+import AuthLayout from "./components/AuthLayout";
 
 import './App.css';
-
-
-
 
 function App() {
   return (
@@ -34,7 +32,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/Product/:ProductId" element={<ProductDetail />} />
-          <Route path="/CreateProducts" element={<CreateProducts />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/CreateProducts" element={<CreateProducts />} />
+          </Route>
+          
           <Route path="/Cart" element={<Cart />} />
         </Routes>
         <Footer />
