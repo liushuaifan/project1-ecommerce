@@ -12,6 +12,7 @@ function Products() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // console.log(localStorage.getItem("admin"));
     dispatch(fetchProductsAction());
   }, []);
 
@@ -27,12 +28,12 @@ function Products() {
     <div className='productContent'>
       <div className='productNav'>
         <h1>Products</h1>
-        <Button variant="contained" onClick={handleClick}>Add Product</Button>
+        {localStorage.getItem("admin")==='true' && <Button variant="contained" onClick={handleClick}>Add Product</Button>}
       </div>
       <div className="productGrid">
         {products && products.map((product)=>(
             <div className="productGridItem" key={product.id}>
-              <Product product={product}/>
+              <Product product={product} admin = {localStorage.getItem("admin")}/>
             </div>
           ))}  
       </div>   

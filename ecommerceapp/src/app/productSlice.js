@@ -26,7 +26,7 @@ export const fetchProductsAction = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const products = await fetchProducts(data);
-      console.log("products list: ", products);
+      // console.log("products list: ", products);
       // thunkAPI.dispatch(removeError());
       return products;
     } catch (error) {

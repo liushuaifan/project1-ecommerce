@@ -1,16 +1,18 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Typography } from '@material-ui/core'
 import Button from '@mui/material/Button';
 import './style/Product.css';
 
-function Product({product}) {
+function Product({product, admin}) {
 
   const navigate = new useNavigate();
-
+  // const show = useState(localStorage.getItem("admin") === 'true');
   const handleClick = (product) => {
-    navigate(`/Product/${product.id}`);
+    console.log(admin);
+    // navigate(`/Product/${product.id}`);
   }
+
 
   return (
     <div>
@@ -25,12 +27,12 @@ function Product({product}) {
           </div>
         </CardContent>
         <div className="buttonContainer">
-          <Button variant="contained" fullWidth>Add</Button>
-          <Button variant="outlined" fullWidth>Edit</Button>
+           <Button variant="contained" fullWidth onClick={()=> handleClick(product)}>Add</Button>
+          {admin==='true' && <Button variant="outlined" fullWidth>Edit</Button>}
         </div>
       </Card>
     </div>
   )
 }
 
-export default Product
+export default Product;

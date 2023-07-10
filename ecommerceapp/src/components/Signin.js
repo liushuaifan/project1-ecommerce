@@ -25,6 +25,7 @@ function Signin() {
     // console.log(formData);
     dispatch(authUser(formData)).then((a) => {
       // console.log(localStorage.getItem("token"))
+      formData.email === "chuwa@admin" ? localStorage.setItem("admin",true) : localStorage.setItem("admin",false);
       if(localStorage.getItem("login")==="true") navigate(location.state?.from || '/') 
       else alert("wrong password");
       // navigate(location.state?.from || '/');
