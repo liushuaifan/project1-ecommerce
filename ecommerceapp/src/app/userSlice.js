@@ -14,10 +14,12 @@ export const authUser = createAsyncThunk(
     try {
       const user = await signIn(data);
       localStorage.setItem('token', user.token);
+      localStorage.setItem('login', true);
       thunkAPI.dispatch(removeError());
       return user;
     } catch (error) {
       const { message } = error;
+      localStorage.setItem('login', false);
       thunkAPI.dispatch(addError(message));
       return thunkAPI.rejectWithValue(message);
     }
