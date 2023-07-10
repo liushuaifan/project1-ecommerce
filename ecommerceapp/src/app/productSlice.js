@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createProduct } from '../services/product';
+import { createProduct, fetchProducts } from '../services/product';
 import { removeError, addError } from './errorSlice';
 
 const initialState = {
@@ -7,20 +7,21 @@ const initialState = {
   status: 'idle'
 };
 
-// export const fetchProductsAction = createAsyncThunk(
-//   'products/fetchProducts',
-//   async (data, thunkAPI) => {
-//     try {
-//       const products = await fetchProducts(data);
-//       thunkAPI.dispatch(removeError());
-//       return products;
-//     } catch (error) {
-//       const { product } = error;
-//       thunkAPI.dispatch(addError(product));
-//       return thunkAPI.rejectWithValue(product);
-//     }
-//   }
-// );
+export const fetchProductsAction = createAsyncThunk(
+  'products/fetchProducts',
+  async (data, thunkAPI) => {
+    try {
+      const products = await fetchProducts(data);
+      console.log(products);
+      thunkAPI.dispatch(removeError());
+      return products;
+    } catch (error) {
+      const { product } = error;
+      thunkAPI.dispatch(addError(product));
+      return thunkAPI.rejectWithValue(product);
+    }
+  }
+);
 
 export const createProductAction = createAsyncThunk(
   'products/createProduct',
@@ -37,21 +38,6 @@ export const createProductAction = createAsyncThunk(
   }
 );
 
-// export const deleteProductAction = createAsyncThunk(
-//   'products/deleteProduct',
-//   async (data, thunkAPI) => {
-//     try {
-//       const product = await deleteProduct(data);
-//       thunkAPI.dispatch(removeError());
-//       return product;
-//     } catch (error) {
-//       const { product } = error;
-//       thunkAPI.dispatch(addError(product));
-//       return thunkAPI.rejectWithValue(product);
-//     }
-//   }
-// );
-
 const productSlice = createSlice({
   name: 'products',
   initialState,
@@ -62,38 +48,32 @@ const productSlice = createSlice({
     // }
   },
   extraReducers: builder => {
-    // builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
-    //   state.status = 'succeeded';
-    //   state.products = action.payload;
-    // });
-    // builder.addCase(fetchProductsAction.rejected, (state, action) => {
-    //   state.status = 'failed';
-    // });
-    // builder.addCase(fetchProductsAction.pending, (state, action) => {
-    //   state.status = 'pending';
-    // });
+    builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      console.log('product state is assigned')
+      state.products = action.payload;
+    });
+    builder.addCase(fetchProductsAction.rejected, (state, action) => {
+      state.status = 'failed';
+      state.products = action.payload;
+    });
+    builder.addCase(fetchProductsAction.pending, (state, action) => {
+      state.status = 'pending';
+      state.products = action.payload;
+    });
     builder.addCase(createProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
+      console.log('product state is created')
       state.products.push(action.payload);
     });
     builder.addCase(createProductAction.rejected, (state, action) => {
       state.status = 'failed';
+      console.log('product state is created')
     });
     builder.addCase(createProductAction.pending, (state, action) => {
       state.status = 'pending';
+      console.log('product state is created')
     });
-    // builder.addCase(deleteProductAction.fulfilled, (state, action) => {
-    //   state.status = 'succeeded';
-    //   state.products = state.products.filter(
-    //     product => product._id !== action.payload._id
-    //   );
-    // });
-    // builder.addCase(deleteProductAction.rejected, (state, action) => {
-    //   state.status = 'failed';
-    // });
-    // builder.addCase(deleteProductAction.pending, (state, action) => {
-    //   state.status = 'pending';
-    // });
   }
 });
 

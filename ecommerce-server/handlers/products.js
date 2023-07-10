@@ -19,13 +19,13 @@ exports.createProduct = async function (req, res, next) {
     // save the user
     await foundUser.save();
     // send back the product with the user id
-    const foundMessage = await db.Product.findById(product._id).populate(
+    const foundProduct= await db.Product.findById(product._id).populate(
       'user',
       {
         username: true
       }
     );
-    return res.status(200).json(foundMessage);
+    return res.status(200).json(foundProduct);
   } catch (err) {
     return next(err);
   }

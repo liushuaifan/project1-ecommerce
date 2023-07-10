@@ -5,7 +5,7 @@ const errorHandler = require('./handlers/error');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
 // const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
-// const db = require('./models'); 
+const db = require('./models'); 
 
 const PORT = 8080;
 const app = express();
@@ -18,19 +18,20 @@ app.use('/api/users/:id/products',
   productRoutes
 );
 
-// app.get('/api/messages', loginRequired, async function (req, res, next) {
-//   try {
-//     const messages = await db.Message.find()
-//       .sort({ createdAt: 'desc' })
-//       .populate('user', {
-//         username: true,
-//         profileImageUrl: true
-//       });
-//     return res.status(200).json(messages);
-//   } catch (err) {
-//     return next(err);
-//   }
-// });
+
+app.get('/api/products', async function (req, res, next) {
+  try {
+    const products = await db.Product.find()
+      .sort({ createdAt: 'desc' })
+      .populate('user', {
+        username: true,
+        profileImageUrl: true
+      });
+    return res.status(200).json(products);
+  } catch (err) {
+    return next(err);
+  }
+});
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
