@@ -38,7 +38,7 @@ export default function SignUp() {
         <input  placeholder="youremail@gmail.com" id="email" name="email" value = {formData.email} onChange={handleChange}/>
         <label htmlFor="password">Password</label>
         <input type="password" placeholder="********" id="password" name="password" value = {formData.password} onChange={handleChange}/>
-        <button type="submit" className='submitButton' onSubmit = "handleSubmit">Create account  </button>
+        <button type="submit" className='submitButton' onSubmit = {handleSubmit}>Create account  </button>
       </form>
 
 
