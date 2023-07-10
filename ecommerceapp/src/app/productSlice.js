@@ -7,22 +7,6 @@ const initialState = {
   status: 'idle'
 };
 
-export const fetchProductsAction = createAsyncThunk(
-  'products/fetchProducts',
-  async (data, thunkAPI) => {
-    try {
-      const products = await fetchProducts(data);
-      console.log(products);
-      thunkAPI.dispatch(removeError());
-      return products;
-    } catch (error) {
-      const { product } = error;
-      thunkAPI.dispatch(addError(product));
-      return thunkAPI.rejectWithValue(product);
-    }
-  }
-);
-
 export const createProductAction = createAsyncThunk(
   'products/createProduct',
   async (data, thunkAPI) => {
@@ -30,6 +14,21 @@ export const createProductAction = createAsyncThunk(
       const product = await createProduct(data);
       thunkAPI.dispatch(removeError());
       return product;
+    } catch (error) {
+      const { product } = error;
+      thunkAPI.dispatch(addError(product));
+      return thunkAPI.rejectWithValue(product);
+    }
+  }
+);
+export const fetchProductsAction = createAsyncThunk(
+  'products/fetchProducts',
+  async (data, thunkAPI) => {
+    try {
+      const products = await fetchProducts(data);
+      console.log("products list: ", products);
+      // thunkAPI.dispatch(removeError());
+      return products;
     } catch (error) {
       const { product } = error;
       thunkAPI.dispatch(addError(product));

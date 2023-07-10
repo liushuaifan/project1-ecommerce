@@ -4,7 +4,7 @@ const cors = require('cors');
 const errorHandler = require('./handlers/error');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
-// const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
+const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
 const db = require('./models'); 
 
 const PORT = 8080;
@@ -22,11 +22,7 @@ app.use('/api/users/:id/products',
 app.get('/api/products', async function (req, res, next) {
   try {
     const products = await db.Product.find()
-      .sort({ createdAt: 'desc' })
-      .populate('user', {
-        username: true,
-        profileImageUrl: true
-      });
+      .sort({ createdAt: 'desc' });
     return res.status(200).json(products);
   } catch (err) {
     return next(err);
