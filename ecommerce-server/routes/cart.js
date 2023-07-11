@@ -1,15 +1,16 @@
-// const express = require('express');
-// const router = express.Router({ mergeParams: true });
-// const {
-//   createCart,
-//   getCart,
-//   updateCart
-// } = require('../handlers/cart');
+const express = require('express');
+const router = express.Router({ mergeParams: true });
+const {
+  createCart,
+  getCart,
+  updateCart
+} = require('../handlers/cart');
 
-// // prefix - /api/users/:id/messages
+// prefix - /api/users/:id/messages
 // router.route('/').post(createCart);
 
 // // prefix - /api/users/:id/messages/:message_id
-// router.route('/:message_id').get(getMessage).delete(deleteMessage);
+// router.get('/:email', getCart);
+// router.put('/:email', updateCart);
 
-// module.exports = router;
+module.exports = router;

@@ -4,6 +4,7 @@ const cors = require('cors');
 const errorHandler = require('./handlers/error');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
+const cartRoutes = require('./routes/cart');
 const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
 const db = require('./models'); 
 
@@ -18,6 +19,10 @@ app.use('/api/users/:id/products',
   productRoutes
 );
 
+app.use('/api/users/:id/carts',
+  cartRoutes
+);
+
 
 app.get('/api/products', async function (req, res, next) {
   try {
@@ -28,6 +33,19 @@ app.get('/api/products', async function (req, res, next) {
     return next(err);
   }
 });
+
+app.get('/api/carts', async function (req, res, next) {
+  try {
+    const carts = await db.Cart.find()
+      .sort({ createdAt: 'desc' });
+    return res.status(200).json(carts);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+
+
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
