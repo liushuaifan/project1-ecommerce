@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProductAction } from '../app/productSlice';
 import ProductForm from "./ProductForm";
@@ -10,14 +10,14 @@ function UpdateProducts() {
 
   const dispatch = useDispatch();
   const navigate = new useNavigate();
+  const location = useLocation();
+  const extraParam = location.state.extraParam;
+
+
   const { user } = useSelector(state => state.user);
   const { product } = useSelector(state => state.product);
   const { ProductId } = useParams();
-  console.log("user info: ", user);
-  console.log("all product info: ", product);
-  console.log("product id: ", ProductId)
   const handleSubmit = (data) => {
-    console.log(data)
     dispatch(updateProductAction({ 
       userId: user.id, 
       productId: ProductId, 
@@ -28,7 +28,10 @@ function UpdateProducts() {
       imageurl: data.imageurl
      })).then(
       () => {
-        navigate('/');
+        if(extraParam==='productdetail'){
+          navigate(`/Product/${ProductId}`);
+        }else if(extraParam==='home')
+          navigate('/');
       }
     );
   };

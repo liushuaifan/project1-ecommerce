@@ -12,14 +12,13 @@ function Product({product, admin}) {
   const navigate = new useNavigate();
   // const show = useState(localStorage.getItem("admin") === 'true');
   const handleClick = (product) => {
-    console.log(admin);
-    console.log(product);
-    // navigate(`/Product/${product.id}`);
+    // console.log(admin);
+    // console.log(product);
+    navigate(`/Product/${product._id}`);
   }
-  const dispatch = useDispatch();
 
   const updateProduct = (product) => {
-    navigate(`/UpdateProducts/${product._id}`);
+    navigate(`/UpdateProducts/${product._id}`, { state: { extraParam: "home" } });
   }
 
   return (
@@ -35,7 +34,7 @@ function Product({product, admin}) {
           </div>
         </CardContent>
         <div className="buttonContainer">
-           <Button variant="contained" fullWidth onClick={()=> handleClick(product)}>Add</Button>
+           <Button variant="contained" fullWidth>Add</Button>
           {admin==='true' && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)}>Edit</Button>}
         </div>
       </Card>
