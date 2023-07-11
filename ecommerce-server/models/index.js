@@ -10,3 +10,4 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 module.exports.User = require('./user');
 module.exports.Product = require('./product');
+module.exports.Cart = require('./cart');

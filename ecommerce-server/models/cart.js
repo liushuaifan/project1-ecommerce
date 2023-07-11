@@ -3,33 +3,30 @@ const User = require('./user');
 
 const cartSchema = new mongoose.Schema({
   cartValue: {
-
     type: String,
     required: true, 
   },
-
+  productname: {
+    type: String,
+    required: true, 
+  },
   email: {
-
-    type: String,
-    required: true, 
-  },
-  imageurl: {
-
     type: String,
     required: true, 
   },
   price: {
-
     type: Number,
     required: true, 
   },
-  productname: {
-
+  userid: {
     type: String,
     required: true, 
   },
 
-
+  productid: {
+    type: String,
+    required: true, 
+  }
 
 });
 

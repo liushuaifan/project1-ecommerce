@@ -8,14 +8,16 @@ const db = require('../models');
 // POST - /api/users/:id/products
 exports.createCart = async function (req, res, next) {
   try {
-    console.log(db.Product)
+    console.log(db.Cart)
 
-    const product = await db.Product.create({
+    const cart = await db.Cart.create({
       cartValue: req.body.cartValue,
-      email: req.body.email,
-      imageurl: req.body.imageurl,
+      productname: req.body.productname,
       price: req.body.price,
-      productname: req.params.productname
+      email: req.body.email,
+
+      userid: req.params.id,
+      productid: req.params.productid
     });
 
     // find the user by id
@@ -25,13 +27,8 @@ exports.createCart = async function (req, res, next) {
     // save the user
     // await foundUser.save();
     // send back the product with the user id
-    const foundProduct= await db.Product.findById(product._id).populate(
-      'user',
-      {
-        username: true
-      }
-    );
-    return res.status(200).json(foundProduct);
+    // const foundCart= await db.Cart.findById(cart._id);
+    return res.status(200).json(cart);
   } catch (err) {
     return next(err);
   }
@@ -40,7 +37,7 @@ exports.createCart = async function (req, res, next) {
 // GET - /api/users/:id/products/:product_id
 exports.getCart = async function (req, res, next) {
   try {
-    const product = await db.Product.findById(req.params.product_id);
+    const cart = await db.Cart.findById(req.params.product_id);
     return res.status(200).json(product);
   } catch (err) {
     return next(err);

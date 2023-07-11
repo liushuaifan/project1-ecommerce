@@ -19,7 +19,7 @@ app.use('/api/users/:id/products',
   productRoutes
 );
 
-app.use('/api/users/:id/carts',
+app.use('/api/users/:id/carts/:productid',
   cartRoutes
 );
 
@@ -43,8 +43,6 @@ app.get('/api/carts', async function (req, res, next) {
     return next(err);
   }
 });
-
-
 
 
 app.use((req, res, next) => {
