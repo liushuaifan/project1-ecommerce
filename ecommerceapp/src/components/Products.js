@@ -12,7 +12,6 @@ function Products() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // console.log(localStorage.getItem("admin"));
     dispatch(fetchProductsAction());
   }, []);
 

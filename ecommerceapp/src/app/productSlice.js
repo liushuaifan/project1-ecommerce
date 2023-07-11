@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createProduct, fetchProducts } from '../services/product';
+import { createProduct, fetchProducts, updateProduct } from '../services/product';
 import { removeError, addError } from './errorSlice';
 
 const initialState = {
@@ -26,7 +26,20 @@ export const fetchProductsAction = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const products = await fetchProducts(data);
-      // console.log("products list: ", products);
+      // thunkAPI.dispatch(removeError());
+      return products;
+    } catch (error) {
+      const { product } = error;
+      thunkAPI.dispatch(addError(product));
+      return thunkAPI.rejectWithValue(product);
+    }
+  }
+);
+export const updateProductAction = createAsyncThunk(
+  'products/updateProducts',
+  async (data, thunkAPI) => {
+    try {
+      const products = await updateProduct(data);
       // thunkAPI.dispatch(removeError());
       return products;
     } catch (error) {
@@ -49,7 +62,6 @@ const productSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      console.log('product state is assigned')
       state.products = action.payload;
     });
     builder.addCase(fetchProductsAction.rejected, (state, action) => {
@@ -62,16 +74,23 @@ const productSlice = createSlice({
     });
     builder.addCase(createProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      console.log('product state is created')
       state.products.push(action.payload);
     });
     builder.addCase(createProductAction.rejected, (state, action) => {
       state.status = 'failed';
-      console.log('product state is created')
     });
     builder.addCase(createProductAction.pending, (state, action) => {
       state.status = 'pending';
-      console.log('product state is created')
+    });
+    builder.addCase(updateProductAction.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.products.push(action.payload);
+    });
+    builder.addCase(updateProductAction.rejected, (state, action) => {
+      state.status = 'failed';
+    });
+    builder.addCase(updateProductAction.pending, (state, action) => {
+      state.status = 'pending';
     });
   }
 });

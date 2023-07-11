@@ -1,10 +1,35 @@
 import apiCall from './api';
 
-export const createProduct = async ({ userId, productname, description }) => {
+export const createProduct = async ({ 
+  userId, 
+  productname, 
+  description,
+  price,
+  quantity,
+  imageurl
+ }
+  ) => {
   return await apiCall({
     url: `/api/users/${userId}/products`,
     method: 'POST',
-    data: { productname, description }
+    data: { productname, description, price, quantity, imageurl }
+  });
+};
+
+export const updateProduct = async ({ 
+  userId, 
+  productId, 
+  productname, 
+  description,
+  price,
+  quantity,
+  imageurl
+ }
+  ) => {
+  return await apiCall({
+    url: `/api/users/${userId}/products/${productId}`,
+    method: 'PUT',
+    data: { productname, description, price, quantity, imageurl }
   });
 };
 

@@ -47,7 +47,6 @@ const currentUserSlice = createSlice({
   reducers: {
     setCurrentUser: (state, action) => {
       state.isAuthenticated = !!Object.keys(action.payload).length;
-      console.log('user state is assigned')
       state.user = action.payload;
     },
     logOutUser: (state, action) => {
@@ -60,7 +59,6 @@ const currentUserSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(authUser.fulfilled, (state, action) => {
       state.isAuthenticated = !!Object.keys(action.payload).length;
-      console.log('user state is assigned!!!')
       state.user = action.payload;
       state.status = 'succeeded';
     });

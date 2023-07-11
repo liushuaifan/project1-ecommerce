@@ -9,6 +9,9 @@ exports.createProduct = async function (req, res, next) {
     const product = await db.Product.create({
       productname: req.body.productname,
       description: req.body.description,
+      price: req.body.price,
+      quantity: req.body.quantity,
+      imageurl: req.body.imageurl,
       user: req.params.id
     });
 
@@ -45,6 +48,7 @@ exports.getProduct = async function (req, res, next) {
 exports.editProduct = async function (req, res, next) {
   try {
     const product = await db.Product.findByIdAndUpdate(req.params.product_id, req.body);
+    await product.save();
     return res.status(200).json(product);
   } catch (err) {
     return next(err);

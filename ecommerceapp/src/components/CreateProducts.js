@@ -14,7 +14,14 @@ function CreateProducts() {
 
   const handleSubmit = (data) => {
     console.log(data)
-    dispatch(createProductAction({ userId: user.id, productname: data.productname, description: data.description })).then(
+    dispatch(createProductAction({ 
+      userId: user.id, 
+      productname: data.productname, 
+      description: data.description,
+      price: data.price, 
+      quantity: data.quantity,
+      imageurl: data.imageurl
+     })).then(
       () => {
         navigate('/');
       }
