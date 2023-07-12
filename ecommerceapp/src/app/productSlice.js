@@ -21,6 +21,8 @@ export const createProductAction = createAsyncThunk(
     }
   }
 );
+
+
 export const fetchProductsAction = createAsyncThunk(
   'products/fetchProducts',
   async (data, thunkAPI) => {

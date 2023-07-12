@@ -4,6 +4,7 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateProductAction } from '../app/productSlice';
+import {createCart , updateCart, fetchCart}  from '../services/product'
 
 import './style/Product.css';
 
@@ -13,6 +14,9 @@ function Product({product, admin}) {
 
   const [cartValue, setcartValue] = useState(0);
   // const show = useState(localStorage.getItem("admin") === 'true');
+
+  const { user } = useSelector(state => state.user);
+
   const handleClick = (product) => {
     // console.log(admin);
     // console.log(product);
@@ -27,13 +31,25 @@ function Product({product, admin}) {
   const AddtoCart = (product) => {
     setcartValue(cartValue+1);
     // console.log(product);
-    console.log({
+    const data = {
       cartValue:cartValue+1,
       email:localStorage.getItem("email"),
       imageurl:product.imageurl,
       price:product.price,
-      productname:product.productname 
-    });
+      productname:product.productname,
+      productId:product._id,
+      userId: user.id
+    };
+
+    const fetchdata = {
+      productId:product._id,
+      userId: user.id
+    }
+
+
+    fetchCart(fetchdata).then(dat=> dat[0] === undefined ? createCart(data) : updateCart(data));
+
+
   }
 
   const MinuCart = (product) => {

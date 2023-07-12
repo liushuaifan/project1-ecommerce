@@ -5,7 +5,7 @@
 // get, post, put, delete
 const db = require('../models');
 
-// POST - /api/users/:id/products
+// create - /api/users/:userid/carts/:productid
 exports.createCart = async function (req, res, next) {
   try {
     console.log(db.Cart)
@@ -15,7 +15,6 @@ exports.createCart = async function (req, res, next) {
       productname: req.body.productname,
       price: req.body.price,
       email: req.body.email,
-
       userid: req.params.id,
       productid: req.params.productid
     });
@@ -37,8 +36,9 @@ exports.createCart = async function (req, res, next) {
 // GET - /api/users/:id/products/:product_id
 exports.getCart = async function (req, res, next) {
   try {
-    const cart = await db.Cart.findById(req.params.product_id);
-    return res.status(200).json(product);
+    console.log(db.Cart);
+    const cart = await db.Cart.find({"userid" : req.params.id, "productid" : req.params.productid});
+    return res.status(200).json(cart);
   } catch (err) {
     return next(err);
   }
@@ -47,8 +47,11 @@ exports.getCart = async function (req, res, next) {
 // PUT - /api/users/:id/products/:product_id
 exports.updateCart = async function (req, res, next) {
   try {
-    const product = await db.Product.findByIdAndUpdate(req.params.product_id, req.body);
-    await product.save();
+    const product = await db.Cart.findOneAndUpdate(
+      {"productid": req.params.productid},
+      {"cartValue" : req.body.cartValue}
+    );
+
     return res.status(200).json(product);
   } catch (err) {
     return next(err);
