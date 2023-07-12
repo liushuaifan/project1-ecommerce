@@ -16,22 +16,81 @@ export const createProduct = async ({
   });
 };
 
-export const updateProduct = async ({ 
-  userId, 
-  productId, 
-  productname, 
-  description,
+
+export const createCart = async ({ 
+  cartValue, 
+  productname,
+  email, 
   price,
-  quantity,
-  imageurl
+  userId,
+  productId
+ }
+  ) => {
+    // /api/users/:userid/carts/:productid
+  return await apiCall({
+    url: `/api/users/${userId}/carts/${productId}`,
+    method: 'POST',
+    data: { cartValue, productname, email, price}
+  });
+};
+
+
+
+
+
+export const updateProduct = async ({ 
+  cartValue, 
+  productname,
+  email, 
+  price,
+  userId,
+  productId
  }
   ) => {
   return await apiCall({
-    url: `/api/users/${userId}/products/${productId}`,
+    url: `/api/users/${userId}/carts/${productId}`,
     method: 'PUT',
-    data: { productname, description, price, quantity, imageurl }
+    data: { cartValue, productname, email, price}
   });
 };
+
+
+export const updateCart = async ({ 
+  cartValue, 
+  productname,
+  email, 
+  price,
+  userId,
+  productId
+ }
+  ) => {
+  return await apiCall({
+    url: `/api/users/${userId}/carts/${productId}`,
+    method: 'PUT',
+    data: { cartValue, productname, email, price }
+  });
+};
+
+
+
+
+
+
+
+
+
+export const fetchCart = async (
+  {
+    userId,
+    productId
+  }
+) => {
+  return await apiCall({
+    url: `/api/users/${userId}/carts/${productId}`,
+    method: 'GET'
+  });
+};
+
 
 export const fetchProducts = async () => {
   return await apiCall({
@@ -39,6 +98,9 @@ export const fetchProducts = async () => {
     method: 'GET'
   });
 };
+
+
+
 
 export const deleteProduct = async ({ userId, productId }) => {
   console.log(userId, productId);
