@@ -1,9 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { fetchUserCart } from '../services/cart';
+
 import "./style/cart.css";
 
 const style = {
@@ -24,22 +27,25 @@ export default function BasicModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [product, setProduct] = useState( [
-    { id:1 , name: 'Apple Watch', price: '$199.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
-    { id:2 , name: 'Apple Watch', price: '$299.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
-
-  ]);
+  const [products, setProducts] = useState([]);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
-    
-    const products = [
-      { id:1 , name: 'Apple Watch', price: '$199.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
-      { id:2 , name: 'Apple Watch', price: '$299.00', description: 'Apple Watch, 126G', img:'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/SmartSelect_20180913_104037_Firefox.jpg'},
 
-    ]
-
-    setProduct(products.find(product => product.id === Number(1)))
-  }, 1);
+    async function fetchData() {
+      const fetchdata = {
+        userId: user.id
+      }
+      try {
+        const result = await fetchUserCart(fetchdata);
+        console.log("Get user cart: ", result);
+        setProducts(result);
+      } catch (error) {
+        console.error("Error fetching user cart: ", error);
+      }
+    }
+    fetchData();
+  }, [user.id]);
 
 
   return (
@@ -61,16 +67,27 @@ export default function BasicModal() {
           </div>
 
         <div className='cartDetail'>
-       
-            <img src={product.img} alt="Apple Watch" style={{width: "50px",height:"50px"}}/>
+          
+          {products.length > 0 && products.map((product, index) => (
+            <div key={index}>
+              <img src={product.img} alt="pending" style={{width: "50px",height:"50px"}}/>
+              <h2 className='cartName'>{product.productname}</h2>
+              <h3 className='cartPrice'>{product.price}</h3>
+              <Button variant="contained" style={{width:"50px",height:"30px", position:"absolute",top:"20%",right:"20%"}} >remove</Button>
+              <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"20%"}} >-</Button>
+              <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"25%"}} >+</Button>
+            </div>
+          ))}
 
-            <h2 className='cartName'>{product.name}</h2>
-            <h3 className='cartPrice'>{product.price}</h3>
-           
+          {/* <img src={products[0].img} alt="Apple Watch" style={{width: "50px",height:"50px"}}/>
 
-            <Button variant="contained" style={{width:"50px",height:"30px", position:"absolute",top:"20%",right:"20%"}} >remove</Button>
-            <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"20%"}} >-</Button>
-            <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"25%"}} >+</Button>
+          <h2 className='cartName'>{products[0].productname}</h2>
+          <h3 className='cartPrice'>{products[0].price}</h3>
+
+
+          <Button variant="contained" style={{width:"50px",height:"30px", position:"absolute",top:"20%",right:"20%"}} onClick={handleClick} >remove</Button>
+          <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"20%"}} >-</Button>
+          <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"25%"}} >+</Button> */}
         </div>
 
         <div className='discount'>

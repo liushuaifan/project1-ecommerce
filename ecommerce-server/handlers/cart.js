@@ -5,7 +5,7 @@
 // get, post, put, delete
 const db = require('../models');
 
-// create - /api/users/:userid/carts/:productid
+// create - /api/users/:id/carts/:productid
 exports.createCart = async function (req, res, next) {
   try {
     console.log(db.Cart)
@@ -33,10 +33,9 @@ exports.createCart = async function (req, res, next) {
   }
 };
 
-// GET - /api/users/:id/products/:product_id
+// GET - /api/users/:id/carts/:product_id
 exports.getCart = async function (req, res, next) {
   try {
-    console.log(db.Cart);
     const cart = await db.Cart.find({"userid" : req.params.id, "productid" : req.params.productid});
     return res.status(200).json(cart);
   } catch (err) {
@@ -44,15 +43,15 @@ exports.getCart = async function (req, res, next) {
   }
 };
 
-// PUT - /api/users/:id/products/:product_id
+// PUT - /api/users/:id/carts/:product_id
 exports.updateCart = async function (req, res, next) {
   try {
-    const product = await db.Cart.findOneAndUpdate(
+    const cart = await db.Cart.findOneAndUpdate(
       {"productid": req.params.productid},
       {"cartValue" : req.body.cartValue}
     );
 
-    return res.status(200).json(product);
+    return res.status(200).json(cart);
   } catch (err) {
     return next(err);
   }

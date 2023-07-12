@@ -16,28 +16,6 @@ export const createProduct = async ({
   });
 };
 
-
-export const createCart = async ({ 
-  cartValue, 
-  productname,
-  email, 
-  price,
-  userId,
-  productId
- }
-  ) => {
-    // /api/users/:userid/carts/:productid
-  return await apiCall({
-    url: `/api/users/${userId}/carts/${productId}`,
-    method: 'POST',
-    data: { cartValue, productname, email, price}
-  });
-};
-
-
-
-
-
 export const updateProduct = async ({ 
   cartValue, 
   productname,
@@ -54,52 +32,12 @@ export const updateProduct = async ({
   });
 };
 
-
-export const updateCart = async ({ 
-  cartValue, 
-  productname,
-  email, 
-  price,
-  userId,
-  productId
- }
-  ) => {
-  return await apiCall({
-    url: `/api/users/${userId}/carts/${productId}`,
-    method: 'PUT',
-    data: { cartValue, productname, email, price }
-  });
-};
-
-
-
-
-
-
-
-
-
-export const fetchCart = async (
-  {
-    userId,
-    productId
-  }
-) => {
-  return await apiCall({
-    url: `/api/users/${userId}/carts/${productId}`,
-    method: 'GET'
-  });
-};
-
-
 export const fetchProducts = async () => {
   return await apiCall({
     url: '/api/products',
     method: 'GET'
   });
 };
-
-
 
 
 export const deleteProduct = async ({ userId, productId }) => {

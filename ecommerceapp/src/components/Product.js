@@ -2,14 +2,14 @@ import React,{useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Typography } from '@material-ui/core'
 import Button from '@mui/material/Button';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { updateProductAction } from '../app/productSlice';
-import {createCart , updateCart, fetchCart}  from '../services/product'
+import {createCart , updateCart, fetchCart}  from '../services/cart'
 
 import './style/Product.css';
 
 function Product({product, admin}) {
-
+  console.log(product);
   const navigate = new useNavigate();
 
   const [cartValue, setcartValue] = useState(0);
@@ -18,19 +18,15 @@ function Product({product, admin}) {
   const { user } = useSelector(state => state.user);
 
   const handleClick = (product) => {
-    // console.log(admin);
-    // console.log(product);
     navigate(`/Product/${product._id}`);
   }
 
   const updateProduct = (product) => {
-    // console.log(product);
     navigate(`/UpdateProducts/${product._id}`, { state: { extraParam: "home" } });
   }
 
   const AddtoCart = (product) => {
     setcartValue(cartValue+1);
-    // console.log(product);
     const data = {
       cartValue:cartValue+1,
       email:localStorage.getItem("email"),
@@ -46,25 +42,25 @@ function Product({product, admin}) {
       userId: user.id
     }
 
-
     fetchCart(fetchdata).then(dat=> dat[0] === undefined ? createCart(data) : updateCart(data));
-
-
   }
 
   const MinuCart = (product) => {
-    let cartNumber = cartValue;
+    // let cartNumber = cartValue;
     if(cartValue>0) {
       setcartValue(cartValue-1);
-      cartNumber = cartValue - 1;
+      // cartNumber = cartValue - 1;
+      const data = {
+        cartValue:cartValue-1,
+        email:localStorage.getItem("email"),
+        imageurl:product.imageurl,
+        price:product.price,
+        productname:product.productname,
+        productId:product._id,
+        userId: user.id
+      };
+      updateCart(data);
     }
-    console.log({
-      cartValue:cartNumber,
-      email:localStorage.getItem("email"),
-      imageurl:product.imageurl,
-      price:product.price,
-      productname:product.productname
-    });
   }
 
 

@@ -34,10 +34,9 @@ app.get('/api/products', async function (req, res, next) {
   }
 });
 
-app.get('/api/carts', async function (req, res, next) {
+app.get('/api/carts/users/:id', async function (req, res, next) {
   try {
-    const carts = await db.Cart.find()
-      .sort({ createdAt: 'desc' });
+    const carts = await db.Cart.find({"userid" : req.params.id});
     return res.status(200).json(carts);
   } catch (err) {
     return next(err);
