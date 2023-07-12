@@ -7,6 +7,7 @@ import { updateProductAction } from '../app/productSlice';
 import {createCart , updateCart, fetchCart}  from '../services/cart'
 
 import './style/Product.css';
+import AddMinButton from './AddMinButton';
 
 function Product({product, admin}) {
   console.log(product);
@@ -77,9 +78,7 @@ function Product({product, admin}) {
           </div>
         </CardContent>
         <div className="buttonContainer">
-           <Button variant="contained"  onClick={()=> AddtoCart(product)} style={{height: "60px"}}>Add</Button>
-           <h1> {cartValue} </h1>
-           <Button variant="contained"  onClick={()=> MinuCart(product)}  style={{height: "60px"}}>Minus</Button>
+           <AddMinButton product={product}/>
           {admin==='true' && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
         </div>
       </Card>

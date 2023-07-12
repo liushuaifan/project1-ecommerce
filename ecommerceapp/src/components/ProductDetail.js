@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 
 import './style/ProductDetail.css';
+import AddMinButton from './AddMinButton';
 
 
 function ProductDetail() {
@@ -35,7 +36,7 @@ function ProductDetail() {
             <h3>${product.price}</h3>
             <p>{product.description}</p>
             <div className='contentButton'>
-              <Button variant="contained" >Add</Button>
+              <AddMinButton product={product}/>
               <Button variant="outlined" onClick={()=> updateProduct(product)}>Edit</Button>
             </div>
           </div>
