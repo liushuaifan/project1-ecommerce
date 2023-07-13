@@ -26,6 +26,11 @@ const cartSchema = new mongoose.Schema({
   productid: {
     type: String,
     required: true, 
+  },
+
+  imageurl: {
+    type: String,
+    required: true, 
   }
 
 });

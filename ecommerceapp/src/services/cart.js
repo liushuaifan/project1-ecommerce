@@ -6,14 +6,15 @@ export const createCart = async ({
   email, 
   price,
   userId,
-  productId
+  productId,
+  imageurl
  }
   ) => {
     // /api/users/:userid/carts/:productid
   return await apiCall({
     url: `/api/users/${userId}/carts/${productId}`,
     method: 'POST',
-    data: { cartValue, productname, email, price}
+    data: { cartValue, productname, email, price, imageurl}
   });
 };
 
@@ -23,13 +24,14 @@ export const updateCart = async ({
   email, 
   price,
   userId,
-  productId
+  productId,
+  imageurl
  }
   ) => {
   return await apiCall({
     url: `/api/users/${userId}/carts/${productId}`,
     method: 'PUT',
-    data: { cartValue, productname, email, price }
+    data: { cartValue, productname, email, price, imageurl }
   });
 };
 

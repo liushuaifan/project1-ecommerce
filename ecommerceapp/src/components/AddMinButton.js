@@ -9,64 +9,74 @@ function AddMinButton({product}) {
 
   const [cartValue, setcartValue] = useState(0);
   const { user } = useSelector(state => state.user);
-
-  useEffect(() => {
-
-    async function fetchUserData() {
-      const fetchdata = {
-        userId: user.id,
-        productId: product._id
-      }
-      try {
-        // console.log("userId: ", user.id);
-        // console.log("productId: ", product._id);
-        const CartResult = await fetchCart(fetchdata);
-        console.log("Get user cart item: ", CartResult[0].cartValue);
-        setcartValue(CartResult[0].cartValue);
-      } catch (error) {
-        console.error("Error fetching user cart: ", error);
-      }
-    }
-    fetchUserData();
-  }, [user.id, product.id,cartValue]);
+  const [fetchdata, setfetchdata] = useState({
+    userId: user.id,
+    productId: product._id
+  })
 
 
   const AddtoCart = (product) => {
-    setcartValue(cartValue+1);
-    const data = {
-      cartValue:cartValue+1,
-      email:localStorage.getItem("email"),
-      imageurl:product.imageurl,
-      price:product.price,
-      productname:product.productname,
-      productId:product._id,
-      userId: user.id
-    };
 
-    const fetchdata = {
-      productId:product._id,
-      userId: user.id
-    }
+  
 
-    fetchCart(fetchdata).then(dat=> dat[0] === undefined ? createCart(data) : updateCart(data));
+    // console.log(user.id+" user "  + product._id);
+    console.log(product.imageurl);
+
+    fetchCart(fetchdata).then(dat=>{
+        if(dat[0] === undefined){
+          setcartValue(1);
+          const data = {
+            cartValue:1,
+            email:localStorage.getItem("email"),
+            imageurl:product.imageurl,
+            price:product.price,
+            productname:product.productname,
+            productId:product._id,
+            userId: user.id,
+          };
+          createCart(data);
+        }else{
+          setcartValue(1+cartValue);
+          const data = {
+            cartValue:1+dat[0].cartValue,
+            email:localStorage.getItem("email"),
+            imageurl:product.imageurl,
+            price:product.price,
+            productname:product.productname,
+            productId:product._id,
+            userId: user.id
+          };
+          updateCart(data)
+        }
+      } 
+    );
+
+    
+
+
   }
 
   const MinuCart = (product) => {
     // let cartNumber = cartValue;
     if(cartValue>0) {
-      setcartValue(cartValue-1);
-      // cartNumber = cartValue - 1;
-      const data = {
-        cartValue:cartValue-1,
-        email:localStorage.getItem("email"),
-        imageurl:product.imageurl,
-        price:product.price,
-        productname:product.productname,
-        productId:product._id,
-        userId: user.id
-      };
-      updateCart(data);
-    }
+      fetchCart(fetchdata).then(dat=>{
+      
+          setcartValue(cartValue-1);
+          const data = {
+            cartValue:dat[0].cartValue-1,
+            email:localStorage.getItem("email"),
+            imageurl:product.imageurl,
+            price:product.price,
+            productname:product.productname,
+            productId:product._id,
+            userId: user.id
+          };
+          updateCart(data);
+        }
+      
+      );
+    };
+    
   }
 
   return (
@@ -78,4 +88,4 @@ function AddMinButton({product}) {
   )
 }
 
-export default AddMinButton
+export default AddMinButton;

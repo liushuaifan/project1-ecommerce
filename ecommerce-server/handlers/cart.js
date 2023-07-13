@@ -16,7 +16,8 @@ exports.createCart = async function (req, res, next) {
       price: req.body.price,
       email: req.body.email,
       userid: req.params.id,
-      productid: req.params.productid
+      productid: req.params.productid,
+      imageurl:req.body.imageurl
     });
 
     // find the user by id
@@ -47,7 +48,7 @@ exports.getCart = async function (req, res, next) {
 exports.updateCart = async function (req, res, next) {
   try {
     const cart = await db.Cart.findOneAndUpdate(
-      {"productid": req.params.productid},
+      {"productid": req.params.productid, "userid":req.params.id},
       {"cartValue" : req.body.cartValue}
     );
 

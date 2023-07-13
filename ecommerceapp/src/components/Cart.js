@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect} from 'react';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -30,7 +30,7 @@ export default function BasicModal() {
   const [products, setProducts] = useState([]);
   const { user } = useSelector(state => state.user);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     async function fetchData() {
       const fetchdata = {
@@ -38,8 +38,10 @@ export default function BasicModal() {
       }
       try {
         const result = await fetchUserCart(fetchdata);
+        console.log(user.id);
         console.log("Get user cart: ", result);
         setProducts(result);
+
       } catch (error) {
         console.error("Error fetching user cart: ", error);
       }
@@ -69,13 +71,13 @@ export default function BasicModal() {
         <div className='cartDetail'>
           
           {products.length > 0 && products.map((product, index) => (
-            <div key={index}>
-              <img src={product.img} alt="pending" style={{width: "50px",height:"50px"}}/>
-              <h2 className='cartName'>{product.productname}</h2>
-              <h3 className='cartPrice'>{product.price}</h3>
-              <Button variant="contained" style={{width:"50px",height:"30px", position:"absolute",top:"20%",right:"20%"}} >remove</Button>
-              <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"20%"}} >-</Button>
-              <Button style={{width:"50px",height:"30px", position:"absolute",top:"20%",left:"25%"}} >+</Button>
+            <div key={index} style={{width:"200px" , height:"80px"}}>
+              <img src={product.imageurl} alt="pend" style={{width: "70px",height:"70px", position:"relative",top:"20px"}}/>
+              <h2 className='cartName' style={{position:"relative",top:"-78px",left:"35%"}}>{product.productname}</h2>
+              <h3 className='cartPrice' style={{position:"relative",top:"-118px",left:"190%"}}>{product.price}</h3>
+              <Button style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-118px",left:"35%"}} >-</Button>
+              <Button style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-118px",left:"150%"}} >Remove</Button>
+              <Button style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-118px",left:"10%"}} >+</Button>
             </div>
           ))}
 
@@ -91,9 +93,9 @@ export default function BasicModal() {
         </div>
 
         <div className='discount'>
-            <h style={{position:"absolute", top:"30%"}}>Apply discount code </h>
-            <input type="text" id="discount" name="discount" style={{position:"absolute", top:"40%"}}/>
-            <button type="submit" className='discountbuton' style={{position:"absolute", top:"40%",right:"10%", color:"white"}}>apply discount  </button>
+            <h style={{position:"relative", top:"30px"}}>Apply discount code </h>
+            <input type="text" id="discount" name="discount" style={{position:"relative", top:"70px",width:"200px", right:"30%",height:"10px"}}/>
+            <button type="submit" className='discountbuton' style={{position:"relative", top:"10px",left:"70%", color:"white"}}>apply discount  </button>
         </div>
         
         <h style={{position:"absolute", top:"60%"}}> subtotal </h>

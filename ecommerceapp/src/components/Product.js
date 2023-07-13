@@ -26,44 +26,6 @@ function Product({product, admin}) {
     navigate(`/UpdateProducts/${product._id}`, { state: { extraParam: "home" } });
   }
 
-  const AddtoCart = (product) => {
-    setcartValue(cartValue+1);
-    const data = {
-      cartValue:cartValue+1,
-      email:localStorage.getItem("email"),
-      imageurl:product.imageurl,
-      price:product.price,
-      productname:product.productname,
-      productId:product._id,
-      userId: user.id
-    };
-
-    const fetchdata = {
-      productId:product._id,
-      userId: user.id
-    }
-
-    fetchCart(fetchdata).then(dat=> dat[0] === undefined ? createCart(data) : updateCart(data));
-  }
-
-  const MinuCart = (product) => {
-    // let cartNumber = cartValue;
-    if(cartValue>0) {
-      setcartValue(cartValue-1);
-      // cartNumber = cartValue - 1;
-      const data = {
-        cartValue:cartValue-1,
-        email:localStorage.getItem("email"),
-        imageurl:product.imageurl,
-        price:product.price,
-        productname:product.productname,
-        productId:product._id,
-        userId: user.id
-      };
-      updateCart(data);
-    }
-  }
-
 
   return (
     <div>
