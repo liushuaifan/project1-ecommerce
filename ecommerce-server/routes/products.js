@@ -7,7 +7,7 @@ const {
   // deleteProduct
 } = require('../handlers/products');
 
-// prefix - /api/users/:id/messages
+// prefix - /api/users/:id/products
 router.route('/').post(createProduct);
 
 router.get('/:product_id', getProduct);
