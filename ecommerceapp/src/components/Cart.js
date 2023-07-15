@@ -17,7 +17,7 @@ const style = {
   left: '50%',
   transform: 'translate(70%, -60%)',
   width: 500,
-  height:700,
+  height:750,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -51,10 +51,11 @@ export default function BasicModal() {
       try {
         const result = await fetchUserCart(fetchdata);
         // console.log(user.id);
-        console.log("Get user cart: ", result);
-        setsubtotal(result.reduce((accumulator, currentValue) => accumulator + currentValue.cartValue * currentValue.price,0))
+        const init = result.reduce((accumulator, currentValue) => accumulator + currentValue.cartValue * currentValue.price,0);
+
+        setsubtotal(init)
         setProducts(result);
-        setestimate(1.1*result.reduce((accumulator, currentValue) => accumulator + currentValue.cartValue * currentValue.price,0));
+        setestimate(1.1*init);
       } catch (error) {
         console.error("Error fetching user cart: ", error);
       }
@@ -64,11 +65,18 @@ export default function BasicModal() {
 
   const handlediscount = () =>{
       if(promo==="promo100"){
-        setdiscount(100);
-        setestimate(estimate-100);
+        if(discount===0){
+          setdiscount(100);
+          setestimate(estimate-100);
+        }
       }else{
-        setdiscount(0);
-        setestimate(estimate+100);
+        if(discount===0){
+
+        }else{
+          setdiscount(0);
+          setestimate(estimate+100);
+        }
+
       }
       
   }
@@ -89,7 +97,7 @@ export default function BasicModal() {
       // console.log(data);
       updateCart(data);
       setsubtotal(subtotal+product.price);
-      setestimate(estimate);
+      setestimate(estimate + 1.1*product.price);
       let index = 0;
       // console.log(product.productid);
       // console.log(("hello"));
@@ -113,12 +121,12 @@ export default function BasicModal() {
     setProducts(arr);
 
     setsubtotal(subtotal - product.cartValue * product.price);
-    setestimate(estimate - product.cartValue * product.price);   
+    setestimate(estimate - 1.1* product.cartValue * product.price);   
   }
 
   const MinusCart = (product) =>{
       setsubtotal(subtotal-product.price);
-      setestimate(estimate-product.price);
+      setestimate(estimate-1.1*product.price);
       if(product.cartValue === 1){
           handleRemove(product)
           
@@ -157,9 +165,9 @@ export default function BasicModal() {
       >
         <Box sx={style}>
           <div>
-          <h>
+          <span>
             Cart
-          </h>
+          </span>
 
             <Button onClick={handleClose} style={{position:"absolute",right:"10%"}}>close Cart </Button>
           </div>
@@ -175,9 +183,9 @@ export default function BasicModal() {
               
              
               <Button onClick={()=> AddtoCart(product)} style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-118px",left:"35%"}} >+</Button>
-              <h5 style={{position:"relative",top:"-178px",left:"75%",  fontSize: "20px", color:"black"}}>{product.cartValue} </h5>
-              <Button onClick={()=> MinusCart(product)} style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-238px",left:"95%"}} >-</Button>
-              <Button onClick={()=> handleRemove(product)}    style={{backgroundColor: 'white',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-238px",left:"150%"}} >Remove</Button>
+              <h4 style={{position:"relative",top:"-168px",left:"75%",  fontSize: "20px", color:"black"}}>{product.cartValue} </h4>
+              <Button onClick={()=> MinusCart(product)} style={{backgroundColor: 'yellow',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-225px",left:"95%"}} >-</Button>
+              <Button onClick={()=> handleRemove(product)}    style={{backgroundColor: 'white',borderColor: 'red',width:"10px",height:"30px", position:"relative",top:"-225px",left:"150%"}} >Remove</Button>
 
             </div>
           ))}
@@ -194,19 +202,23 @@ export default function BasicModal() {
         </div>
 
         <div className='discount'>
-            <h style={{position:"relative", top:"30px"}}>Apply discount code </h>
+            <span style={{position:"relative", top:"30px"}}>Apply discount code </span>
             <input type="text" id="discount" name="discount" style={{position:"relative", top:"70px",width:"200px", right:"30%",height:"10px"}} onChange={(e) => setpromo(e.target.value)} />
             <button type="submit" className='discountbuton' style={{position:"relative", top:"10px",left:"70%", color:"white"}} onClick={handlediscount}>apply discount  </button>
         </div>
+
+        <div style={{position:"relative", top:"10px"}}>
         
-        <h style={{position:"relative", top:"10px",width:"200px", left:"10%",height:"10px"}}> subtotal </h>
-        <h style={{position:"relative", top:"10px",width:"200px", left:"60%",height:"10px"}}> {subtotal.toFixed(2)} </h>
-        <h style={{position:"relative", top:"30px",width:"200px",left:"-15%",height:"10px"}}> tax </h>
-        <h style={{position:"relative", top:"30px",width:"200px",left:"40%",height:"10px"}}> {(subtotal*0.1).toFixed(2)} </h>
-        <h style={{position:"relative", top:"50px",width:"200px" , left:"-35%",height:"10px"}}> discount </h>
-        <h style={{position:"relative", top:"50px",width:"200px" , left:"17%",height:"10px"}}> {discount.toFixed(2)} </h>
-        <h style={{position:"relative", top:"70px",width:"200px",left:"-59%",height:"10px"}}> estimated total </h>
-        <h style={{position:"relative", top:"50px",width:"200px",left:"72%",height:"10px"}}> {estimate.toFixed(2)} </h>
+        <h5 > subtotal </h5>
+        <h6 > {subtotal.toFixed(2)} </h6>
+        <h5 > tax </h5>
+        <h6 > {(subtotal*0.1).toFixed(2)} </h6>
+        <h5 > discount </h5>
+        <h6 > {discount.toFixed(2)} </h6>
+        <h5 > estimate </h5>
+        <h6 > {estimate.toFixed(2)} </h6>
+
+        </div>
         
         <button type="submit" className='gotocheckout' style={{position:"absolute", top:"90%",left:"10%", color:"white",width:"400px"}}>Continue to check out  </button>
 

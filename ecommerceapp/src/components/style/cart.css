@@ -8,6 +8,15 @@
     /* display: flex; */
 }
 
+h5{
+    position:relative; top:5px;width:100px; left:10%;height:5px;margin:5px;font-size: 15px;
+}
+
+h6{
+    position:relative; top:-5px;width:100px; left:70%;height:5px;margin:5px;font-size: 15px;
+}
+
+
 /* .cartName{
     font-size: 20px;
     position: relative;

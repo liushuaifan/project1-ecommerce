@@ -32,7 +32,8 @@ function Product({product, admin}) {
         <img className="productImage"src={product.imageurl} alt="loading..." onClick={()=> handleClick(product)}/>
         <CardContent>
           <div>
-            <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant='body2' color='textSecondary' />
+            <Typography dangerouslySetInnerHTML={{ __html: product.productname }} variant='body2' color='textSecondary' />
+            {/* <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant='body2' color='textSecondary' /> */}
             <Typography variant="h5">
                 ${product.price}
             </Typography>
