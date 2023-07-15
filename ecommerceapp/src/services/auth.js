@@ -15,3 +15,10 @@ export const signIn = async data => {
     data
   });
 };
+
+export const fetchUserInfo = async data => {
+  return await apiCall({
+    url: `/api/user/${data.userId}`,
+    method: 'GET'
+  });
+}

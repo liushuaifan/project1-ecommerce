@@ -34,6 +34,15 @@ app.get('/api/products', async function (req, res, next) {
   }
 });
 
+app.get('/api/user/:id', async function (req, res, next) {
+  try {
+    const users = await db.User.find({"_id": req.params.id});
+    return res.status(200).json(users);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 app.get('/api/carts/users/:id', async function (req, res, next) {
   try {
     const carts = await db.Cart.find({"userid" : req.params.id});

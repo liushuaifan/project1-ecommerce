@@ -13,7 +13,6 @@ function CreateProducts() {
   const { user } = useSelector(state => state.user);
 
   const handleSubmit = (data) => {
-    console.log(data)
     dispatch(createProductAction({ 
       userId: user.id, 
       productname: data.productname, 

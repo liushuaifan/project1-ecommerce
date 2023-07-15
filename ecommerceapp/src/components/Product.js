@@ -10,7 +10,6 @@ import './style/Product.css';
 import AddMinButton from './AddMinButton';
 
 function Product({product, admin}) {
-  console.log(product);
   const navigate = new useNavigate();
 
   const [cartValue, setcartValue] = useState(0);
