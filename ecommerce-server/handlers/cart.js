@@ -57,3 +57,15 @@ exports.updateCart = async function (req, res, next) {
     return next(err);
   }
 };
+
+exports.deleteCart = async function (req, res, next) {
+  try {
+    const cart = await db.Cart.deleteMany(
+      {"productid": req.params.productid, "userid":req.params.id}
+    );
+
+    return res.status(200).json(cart);
+  } catch (err) {
+    return next(err);
+  }
+};

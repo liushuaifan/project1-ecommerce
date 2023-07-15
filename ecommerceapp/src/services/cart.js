@@ -57,3 +57,15 @@ export const fetchUserCart = async (
     method: 'GET'
   });
 };
+
+export const deleteCart = async (
+  {
+    userId,
+    productId
+  }
+) => {
+  return await apiCall({
+    url: `/api/users/${userId}/carts/${productId}`,
+    method: 'DELETE'
+  });
+};
