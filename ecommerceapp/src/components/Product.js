@@ -41,7 +41,7 @@ function Product({product, admin}) {
         </CardContent>
         <div className="buttonContainer">
            <AddMinButton product={product}/>
-          {admin==='true' && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
+          {admin==='true' && user.id===product.user && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
         </div>
       </Card>
     </div>

@@ -42,6 +42,7 @@ function Products() {
   }
 
   const handleShowProducts = async() => {
+    console.log("aaaa", products[0])
     const fetchdata = {
       userId: user.id
     }

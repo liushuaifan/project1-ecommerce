@@ -17,18 +17,19 @@ export const createProduct = async ({
 };
 
 export const updateProduct = async ({ 
-  cartValue, 
   productname,
-  email, 
+  description, 
   price,
+  quantity,
+  imageurl,
   userId,
   productId
  }
   ) => {
   return await apiCall({
-    url: `/api/users/${userId}/carts/${productId}`,
+    url: `/api/users/${userId}/products/${productId}`,
     method: 'PUT',
-    data: { cartValue, productname, email, price}
+    data: { productname,description, price,quantity,imageurl}
   });
 };
 

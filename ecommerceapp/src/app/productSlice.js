@@ -41,6 +41,8 @@ export const updateProductAction = createAsyncThunk(
   'products/updateProducts',
   async (data, thunkAPI) => {
     try {
+      console.log("updateProductAction is called");
+      console.log("data is: ", data)
       const products = await updateProduct(data);
       // thunkAPI.dispatch(removeError());
       return products;

@@ -2,26 +2,39 @@ import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import {createCart , updateCart, fetchCart}  from '../services/cart';
+import { useDispatch } from 'react-redux';
+import { updateProductAction, fetchProductsAction } from '../app/productSlice';
 
 import "./style/button.css";
 
 function AddMinButton({product}) {
 
+  const dispatch = useDispatch();
   const [cartValue, setcartValue] = useState(0);
   const { user } = useSelector(state => state.user);
+  // const { product } = useSelector(state => state.product);
   const [fetchdata, setfetchdata] = useState({
     userId: user.id,
     productId: product._id
   })
 
 
-  const AddtoCart = (product) => {
 
-  
-
-    // console.log(user.id+" user "  + product._id);
-    console.log(product.imageurl);
-
+  const AddtoCart = async  (product) => {
+    
+    // console.log(product)
+    if(localStorage.getItem(`product${product._id}`)==="0"){
+      alert("Reach Maximun Quantity!");
+      return;
+    }
+    await dispatch(updateProductAction({ 
+      userId: user.id, 
+      productId: product._id, 
+      quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity): localStorage.getItem(`product${product._id}`)-1,
+     }))
+    localStorage.setItem(`product${product._id}`, localStorage.getItem(`product${product._id}`)-1);
+    
+    
     fetchCart(fetchdata).then(dat=>{
         if(dat[0] === undefined){
           setcartValue(1);
@@ -50,15 +63,20 @@ function AddMinButton({product}) {
         }
       } 
     );
-
-    
-
-
   }
 
-  const MinuCart = (product) => {
+  const MinuCart = async (product) => {
     // let cartNumber = cartValue;
+
     if(cartValue>0) {
+
+      await dispatch(updateProductAction({ 
+        userId: user.id, 
+        productId: product._id, 
+        quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity+1): Number(localStorage.getItem(`product${product._id}`))+1,
+       }))
+      localStorage.setItem(`product${product._id}`, Number(localStorage.getItem(`product${product._id}`))+1);
+
       fetchCart(fetchdata).then(dat=>{
       
           setcartValue(cartValue-1);
