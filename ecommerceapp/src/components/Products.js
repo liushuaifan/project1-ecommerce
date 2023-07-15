@@ -32,7 +32,7 @@ function Products() {
   const firstProductIndex = lastProductIndex - productPerPage;
 
   const currentProducts = Array.isArray(sortedProducts) ? sortedProducts.slice(firstProductIndex, lastProductIndex) : [];
-
+  
   
 
   const navigate = new useNavigate();
