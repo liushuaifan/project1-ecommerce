@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { createProductAction } from '../app/productSlice';
-import ProductForm from "./ProductForm";
+import NewProductForm from "./newProductFrom";
 
 import './style/CreateProducts.css';
 
@@ -11,7 +11,7 @@ function CreateProducts() {
   const dispatch = useDispatch();
   const navigate = new useNavigate();
   const { user } = useSelector(state => state.user);
-
+  const { products } = useSelector(state => state.product);
   const handleSubmit = (data) => {
     dispatch(createProductAction({ 
       userId: user.id, 
@@ -48,7 +48,7 @@ function CreateProducts() {
     
   // };
 
-  return <ProductForm onSubmit={handleSubmit} />;
+  return <NewProductForm onSubmit={handleSubmit}/>;
 
   // return (
   //   <form onSubmit={handleSubmit}>

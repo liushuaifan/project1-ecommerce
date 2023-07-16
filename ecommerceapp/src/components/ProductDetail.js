@@ -35,6 +35,7 @@ function ProductDetail() {
             <h2>{product.productname}</h2>
             <h3>${product.price}</h3>
             <p>{product.description}</p>
+            <p> items remaining: {product.quantity}</p>
             <div className='contentButton'>
               <AddMinButton product={product}/>
               <Button variant="outlined" onClick={()=> updateProduct(product)}>Edit</Button>

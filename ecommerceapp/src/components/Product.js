@@ -37,11 +37,17 @@ function Product({product, admin}) {
             <Typography variant="h5">
                 ${product.price}
             </Typography>
+            <Typography variant="h6" style={{position:"relative",left:"50%", top:"10%"}}>
+                remaining:{product.quantity}
+            </Typography>
+            {/* <Typography variant="h1">
+                ${product.quantity}
+            </Typography> */}
           </div>
         </CardContent>
         <div className="buttonContainer">
-           <AddMinButton product={product}/>
-          {admin==='true' && user.id===product.user && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
+           {localStorage.getItem("login")==='true' && <AddMinButton product={product}/>}
+          {localStorage.getItem("login")==='true' && admin==='true' && user.id===product.user && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
         </div>
       </Card>
     </div>

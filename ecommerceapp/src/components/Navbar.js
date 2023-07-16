@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState,useLayoutEffect } from 'react'
 import { Link,useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -9,13 +9,27 @@ function Navbar() {
 
   const { products } = useSelector(state => state.product); 
   const navigate = useNavigate();
+  const [login, setlogin] = useState(true);
   const handleInputChange = (event,value) =>{  
       // console.log(value);
       // console.log(products);
       const copy = products.find(product => product.productname === value);
       console.log(copy);
-      navigate('/Product/' + copy._id);
+      // navigate('/Product/' + copy._id);
+      navigate(`/Product/${copy._id}`);
   }
+  
+  const handleClick = () =>{
+    setlogin(false);
+    localStorage.setItem("login",false);
+    navigate('/signin')
+  }
+
+  // useLayoutEffect(() => {
+  //   setlogin(localStorage.getItem("login"))
+  //   console.log(login+"1");
+  //   console.log(localStorage.getItem("login")+"2")
+  // },[])
 
   return (
     <nav className="nav">
@@ -30,7 +44,7 @@ function Navbar() {
       renderInput={(params) => <TextField {...params} label="Movie" />}
     /> */}
 
-      <Autocomplete
+      {/* <Autocomplete
       id="country-select-demo"
       sx={{ width: 300, color:'red' }}
       options={products}
@@ -53,7 +67,7 @@ function Navbar() {
           }}
         />
       )}
-    />
+    /> */}
 
 
 
@@ -68,12 +82,16 @@ function Navbar() {
 
     <ul>
 
-      <Link to="/SignIn">SignIn</Link>
+       {localStorage.getItem("login")==='true' ? <button onClick={handleClick}  style={{color:'white',backgroundColor:"black"}}>Logout</button> : <Link to="/SignIn">SignIn</Link>}
 
 
-      <Link to="/SignUp">SignUp</Link>
+       <Link to="/SignUp">SignUp</Link> 
 
-      <Link to="/Cart">Cart</Link>
+       {/* <Link to="/updatePassword">updatePassword</Link> */}
+
+       {localStorage.getItem("login")==='true' && <Link to="/Cart">Cart</Link>}
+
+
 
     </ul>
 

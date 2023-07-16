@@ -25,7 +25,7 @@ function Signin() {
     // console.log(formData);
     dispatch(authUser(formData)).then((a) => {
       // console.log(localStorage.getItem("token"))
-      formData.email === "chuwa@admin" || "chuwa@admins"? localStorage.setItem("admin",true) : localStorage.setItem("admin",false);
+      (formData.email === "chuwa@admin" || formData.email === "chuwa@admins")? localStorage.setItem("admin",true) : localStorage.setItem("admin",false);
       if(localStorage.getItem("login")==="true") {
         localStorage.setItem("email", formData.email);
         navigate(location.state?.from || '/') 

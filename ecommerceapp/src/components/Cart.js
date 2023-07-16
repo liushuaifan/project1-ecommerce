@@ -52,7 +52,7 @@ export default function BasicModal() {
         const result = await fetchUserCart(fetchdata);
         // console.log(user.id);
         const init = result.reduce((accumulator, currentValue) => accumulator + currentValue.cartValue * currentValue.price,0);
-
+        console.log(result);
         setsubtotal(init)
         setProducts(result);
         setestimate(1.1*init);
@@ -174,7 +174,7 @@ export default function BasicModal() {
 
         <div className='cartDetail'>
           
-          {products.length > 0 && products.map((product, index) => (
+          {products?.length > 0 && products.map((product, index) => (
             <div key={index} style={{width:"200px" , height:"80px"}}>
               <img src={product.imageurl} alt="pend" style={{width: "70px",height:"70px", position:"relative",top:"20px"}}/>
               <h2 className='cartName' style={{color:"black", position:"relative",top:"-78px",left:"65%"}}>{product.productname}</h2>

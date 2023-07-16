@@ -12,6 +12,7 @@ import UpdatePassWord from "./components/updatePassword";
 import SignIn from "./components/Signin"
 import SignUp from "./components/Signup"
 import AuthLayout from "./components/AuthLayout";
+import NotFound from "./components/404";
 
 import './App.css';
 
@@ -30,6 +31,7 @@ function App() {
         </Routes>
 
         </div>
+        
         <Routes>
           <Route path="/" element={<Products />} />
           <Route path="/Product/:ProductId" element={<ProductDetail />} />
@@ -39,6 +41,10 @@ function App() {
           </Route>
           
           <Route path="/Cart" element={<Cart />} />
+
+        </Routes>
+        <Routes>
+        <Route path="*" component={NotFound} />
         </Routes>
         {/* <Footer /> */}
       </BrowserRouter>
