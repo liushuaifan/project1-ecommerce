@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProductAction } from '../app/productSlice';
+import { updateProductAction, deleteProductAction } from '../app/productSlice';
 import ProductForm from "./ProductForm";
 
 import './style/CreateProducts.css';
@@ -13,9 +13,8 @@ function UpdateProducts() {
   const location = useLocation();
   const extraParam = location.state.extraParam;
 
-
+  const { products } = useSelector(state => state.product);
   const { user } = useSelector(state => state.user);
-  const { product } = useSelector(state => state.product);
   const { ProductId } = useParams();
   const handleSubmit = (data) => {
     dispatch(updateProductAction({ 
@@ -35,8 +34,14 @@ function UpdateProducts() {
       }
     );
   };
-
-  return <ProductForm onSubmit={handleSubmit} />;
+  // return <ProductForm onSubmit={handleSubmit} ProductId={ProductId} products={products}/>;
+  if (products) {
+    let product = products.filter(product => product._id===ProductId);
+    console.log(product)
+    return <ProductForm onSubmit={handleSubmit} ProductId={ProductId} product={product}/>;
+  } else {
+    return null;
+  }
 }
 
 export default UpdateProducts;

@@ -42,7 +42,6 @@ export const fetchProducts = async () => {
 
 
 export const deleteProduct = async ({ userId, productId }) => {
-  console.log(userId, productId);
   return await apiCall({
     url: `/api/users/${userId}/products/${productId}`,
     method: 'DELETE'

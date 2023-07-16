@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createProduct, fetchProducts, updateProduct } from '../services/product';
+import { createProduct, deleteProduct, fetchProducts, updateProduct } from '../services/product';
 import { removeError, addError } from './errorSlice';
 
 const initialState = {
@@ -54,6 +54,23 @@ export const updateProductAction = createAsyncThunk(
   }
 );
 
+export const deleteProductAction = createAsyncThunk(
+  'products/deleteProducts',
+  async (data, thunkAPI) => {
+    try {
+      console.log("deleteProductAction is called");
+      console.log("data is: ", data)
+      const products = await deleteProduct(data);
+      // thunkAPI.dispatch(removeError());
+      return products;
+    } catch (error) {
+      const { product } = error;
+      thunkAPI.dispatch(addError(product));
+      return thunkAPI.rejectWithValue(product);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: 'products',
   initialState,
@@ -94,6 +111,16 @@ const productSlice = createSlice({
       state.status = 'failed';
     });
     builder.addCase(updateProductAction.pending, (state, action) => {
+      state.status = 'pending';
+    });
+    builder.addCase(deleteProductAction.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.products.push(action.payload);
+    });
+    builder.addCase(deleteProductAction.rejected, (state, action) => {
+      state.status = 'failed';
+    });
+    builder.addCase(deleteProductAction.pending, (state, action) => {
       state.status = 'pending';
     });
   }

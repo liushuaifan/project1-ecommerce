@@ -54,3 +54,16 @@ exports.editProduct = async function (req, res, next) {
     return next(err);
   }
 };
+
+// DELETE - /api/users/:id/products/:product_id
+exports.deleteProduct = async function (req, res, next) {
+  try {
+    const product = await db.Product.findByIdAndDelete(req.params.product_id);
+    if (!product) {
+      return res.status(404).send('No product found with this id');
+    }
+    return res.status(200).json(product);
+  } catch (err) {
+    return next(err);
+  }
+};
