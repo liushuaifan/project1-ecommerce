@@ -40,9 +40,6 @@ function Signin() {
     <div className="auth-form-container">
       <h2>Sign In to your account</h2>
       <span className="deletebutton"></span>
-
-
-
       <form className="login-form" onSubmit = {handleSubmit}>
         <label htmlFor="email">Email</label>
         <input  placeholder="youremail@gmail.com" id="email" name="email"  value = {formData.email} onChange={handleChange}/>

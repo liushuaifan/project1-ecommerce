@@ -45,7 +45,7 @@ function App() {
         <Routes>
         <Route path="*" component={NotFound} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
 
  

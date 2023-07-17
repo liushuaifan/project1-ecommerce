@@ -24,8 +24,8 @@ function Products() {
   const { user } = useSelector(state => state.user);
 
   useEffect(() => {
-    // console.log("products is :", products);
-    setSortedProducts(products);
+    // console.log(...new Set(products))
+    setSortedProducts([...new Set(products)]);
 }, [products]);
 
   const [productStatus, setProductStatus] = useState("allproduct");

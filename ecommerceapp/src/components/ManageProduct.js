@@ -19,7 +19,7 @@ function ManageProduct() {
   const Action = location.state.Action;
   if(Action==='create'){
     const handleSubmit = (data) => {
-      console.log(data);
+      console.log("create data", data);
       dispatch(createProductAction({ 
         userId: user.id, 
         productname: data.productname, 
@@ -37,7 +37,6 @@ function ManageProduct() {
   }else if(Action==='update'){
     
     const handleSubmit = (data) => {
-      console.log("ProductId:",ProductId)
       dispatch(updateProductAction({ 
         userId: user.id, 
         productId: ProductId, 

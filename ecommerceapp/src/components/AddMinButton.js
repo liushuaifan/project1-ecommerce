@@ -22,16 +22,16 @@ function AddMinButton({product}) {
 
   const AddtoCart = async  (product) => {
     
-    if(localStorage.getItem(`product${product._id}`)==="0"){
+    if(localStorage.getItem(`product${product._id}`)==='0'){
       alert("Reach Maximun Quantity!");
       return;
     }
-    console.log("product._id:",product._id)
+    // console.log("product._id:",product._id)
     await dispatch(updateProductAction({ 
       userId: user.id, 
       productId: product._id, 
       // quantity: 20
-      // quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity): localStorage.getItem(`product${product._id}`)-1,
+      quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity): localStorage.getItem(`product${product._id}`)-1,
      }))
     localStorage.setItem(`product${product._id}`, localStorage.getItem(`product${product._id}`)-1);
     
