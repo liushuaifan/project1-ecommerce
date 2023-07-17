@@ -43,12 +43,10 @@ function Products() {
   const navigate = new useNavigate();
   
   const handleClick = () => {
-    navigate('/CreateProducts');
+    navigate('/ManageProduct/Create', {state: { Action:"create"}});
   }
 
   const handleInputChange = (event,value) =>{  
-    // console.log(value);
-    // console.log(products);
     const copy = products.find(product => product.productname === value);
     console.log(copy);
     // navigate('/Product/' + copy._id);
@@ -60,14 +58,10 @@ const handleSearchChange = () =>{
 }
 
   const handleShowProducts = async() => {
-    console.log("aaaa", products[0])
     const fetchdata = {
       userId: user.id
     }
     const userInfo = await fetchUserInfo(fetchdata);
-    // console.log(userInfo)
-    // console.log(sortedProducts)
-    // console.log(sortedProducts.filter(product=>userInfo[0].products.includes(product._id)))
     setSortedProducts(sortedProducts.filter(product=>userInfo[0].products.includes(product._id)));
   }
   
@@ -98,42 +92,40 @@ const handleSearchChange = () =>{
     <div className='productContent'>
       <div className='productNav'>
         <h1>Products</h1>
-       
-        <select name="sort" id="sort" onChange={handleSort}>
-          <option value="Last Added">Last Added</option>
-          <option value="sortltoh">Price low to high</option>
-          <option value="sorthtol">Price high to low</option>
-        </select>
-
+        <img src="" />
         <Autocomplete
-      id="country-select-demo"
-      sx={{ width: 300, color:'red' }}
-      options={products}
-      onInputChange={handleInputChange}
-      onChange={handleSearchChange}
-      autoHighlight
-      getOptionLabel={(option) => option.productname}
-      renderOption={(props, option) => (
-        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-
-          {option.productname} 
-        </Box>
-      )}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Search"
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
-          }}
+          id="country-select-demo"
+          sx={{ width: 300, color:'red' }}
+          options={products}
+          onInputChange={handleInputChange}
+          onChange={handleSearchChange}
+          autoHighlight
+          getOptionLabel={(option) => option.productname}
+          renderOption={(props, option) => (
+            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              {option.productname} 
+            </Box>
+          )}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search"
+              inputProps={{
+                ...params.inputProps,
+                autoComplete: 'new-password', // disable autocomplete and autofill
+              }}
+            />
+          )}
         />
-      )}
-    />
-
-        {localStorage.getItem("admin")==='true' && <Button variant="contained" onClick={handleShowProducts}>Show My Products</Button>}
-        {localStorage.getItem("admin")==='true' && <Button variant="contained" onClick={handleClick}>Add Product</Button>}
-        
+        <div className='button-container'>
+          <select name="sort" id="sort" onChange={handleSort}>
+            <option value="Last Added">Last Added</option>
+            <option value="sortltoh">Price low to high</option>
+            <option value="sorthtol">Price high to low</option>
+          </select>
+          {localStorage.getItem("admin")==='true' && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleShowProducts}>Show My Products</Button>}
+          {localStorage.getItem("admin")==='true' && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleClick}>Add Product</Button>}
+        </div>
       </div>
       <div className="productGrid">
         {currentProducts && currentProducts.map((product)=>(

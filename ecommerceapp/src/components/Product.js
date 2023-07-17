@@ -22,7 +22,7 @@ function Product({product, admin}) {
   }
 
   const updateProduct = (product) => {
-    navigate(`/UpdateProducts/${product._id}`, { state: { extraParam: "home" } });
+    navigate(`/ManageProduct/Update/${product._id}`, { state: { Direction: "home" , Action: 'update'} });
   }
 
 

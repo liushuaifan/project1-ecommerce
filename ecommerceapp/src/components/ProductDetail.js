@@ -22,7 +22,7 @@ function ProductDetail() {
   
   const navigate = new useNavigate();
   const updateProduct = (product) => {
-    navigate(`/UpdateProducts/${product._id}`, {state: { extraParam: "productdetail" }});
+    navigate(`/ManageProduct/Update/${product._id}`, {state: { Direction: "productdetail" , Action:"update"}});
   }
 
   return (

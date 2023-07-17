@@ -5,8 +5,7 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Products from "./components/Products"
 import ProductDetail from "./components/ProductDetail"
-import CreateProducts from "./components/CreateProducts"
-import UpdateProducts from "./components/UpdateProducts"
+import ManageProduct from "./components/ManageProduct";
 import Cart from "./components/Cart"
 import UpdatePassWord from "./components/updatePassword";
 import SignIn from "./components/Signin"
@@ -36,8 +35,8 @@ function App() {
           <Route path="/" element={<Products />} />
           <Route path="/Product/:ProductId" element={<ProductDetail />} />
           <Route element={<AuthLayout />}>
-            <Route path="/CreateProducts" element={<CreateProducts />} />
-            <Route path="/UpdateProducts/:ProductId" element={<UpdateProducts />} />
+            <Route path="/ManageProduct/Create" element={<ManageProduct />} />
+            <Route path="/ManageProduct/Update/:ProductId" element={<ManageProduct />} />
           </Route>
           
           <Route path="/Cart" element={<Cart />} />

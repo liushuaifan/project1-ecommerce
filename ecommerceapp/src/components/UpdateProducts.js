@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProductAction, deleteProductAction } from '../app/productSlice';
+import { updateProductAction } from '../app/productSlice';
 import ProductForm from "./ProductForm";
 
 import './style/CreateProducts.css';
@@ -34,7 +34,7 @@ function UpdateProducts() {
       }
     );
   };
-  // return <ProductForm onSubmit={handleSubmit} ProductId={ProductId} products={products}/>;
+
   if (products) {
     let product = products.filter(product => product._id===ProductId);
     console.log(product)

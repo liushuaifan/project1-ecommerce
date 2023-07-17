@@ -24,3 +24,13 @@
   align-items: center;
 }
 
+.productNav h1 {
+  margin-left: 10px;
+}
+
+.productNav .button-container {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+  margin-right: 10px;
+}
