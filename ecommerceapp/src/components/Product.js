@@ -28,26 +28,21 @@ function Product({product, admin}) {
 
   return (
     <div>
-      <Card >
-        <img className="productImage"src={product.imageurl} alt="loading..." onClick={()=> handleClick(product)}/>
+      <Card className='productCard'>
+        <img className="productImage" src={product.imageurl} alt="loading..." onClick={()=> handleClick(product)}/>
         <CardContent>
           <div>
-            <Typography dangerouslySetInnerHTML={{ __html: product.productname }} variant='body2' color='textSecondary' />
-            {/* <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant='body2' color='textSecondary' /> */}
-            <Typography variant="h5">
-                ${product.price}
+            {/* <Typography dangerouslySetInnerHTML={{ __html: product.productname }} variant='body2' color='textSecondary' /> */}
+            <h3>{product.productname}</h3>
+            <h3>${product.price}</h3>
+            <Typography variant="h7" style={{position:"relative",left:"0%", top:"10%"}}>
+                Remaining: {product.quantity}
             </Typography>
-            <Typography variant="h6" style={{position:"relative",left:"50%", top:"10%"}}>
-                remaining:{product.quantity}
-            </Typography>
-            {/* <Typography variant="h1">
-                ${product.quantity}
-            </Typography> */}
           </div>
         </CardContent>
         <div className="buttonContainer">
            {localStorage.getItem("login")==='true' && <AddMinButton product={product}/>}
-          {localStorage.getItem("login")==='true' && admin==='true' && user.id===product.user && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "60px"}}>Edit</Button>}
+          {localStorage.getItem("login")==='true' && admin==='true' && user.id===product.user && <Button variant="outlined" fullWidth onClick={()=> updateProduct(product)} style={{ height: "40px"}}>Edit</Button>}
         </div>
       </Card>
     </div>

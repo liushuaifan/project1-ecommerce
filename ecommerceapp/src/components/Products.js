@@ -24,10 +24,11 @@ function Products() {
   const { user } = useSelector(state => state.user);
 
   useEffect(() => {
+    // console.log("products is :", products);
     setSortedProducts(products);
 }, [products]);
 
-  
+  const [productStatus, setProductStatus] = useState("allproduct");
   const [currentPage, setCurrentPage] = useState(1);
   const [productPerPage, setProductPerPage] = useState(10);
   let searchValue = 0;
@@ -38,8 +39,6 @@ function Products() {
 
   const currentProducts = Array.isArray(sortedProducts) ? sortedProducts.slice(firstProductIndex, lastProductIndex) : [];
   
-  
-
   const navigate = new useNavigate();
   
   const handleClick = () => {
@@ -57,12 +56,18 @@ const handleSearchChange = () =>{
   navigate('/Product/' + searchValue);
 }
 
-  const handleShowProducts = async() => {
+  const handleShowMyProducts = async() => {
+    setProductStatus("myproduct")
     const fetchdata = {
       userId: user.id
     }
     const userInfo = await fetchUserInfo(fetchdata);
     setSortedProducts(sortedProducts.filter(product=>userInfo[0].products.includes(product._id)));
+  }
+
+  const handleShowAllProducts = async() => {
+    setProductStatus("allproduct")
+    setSortedProducts(products);
   }
   
   const handleSort = (e) => {
@@ -92,7 +97,6 @@ const handleSearchChange = () =>{
     <div className='productContent'>
       <div className='productNav'>
         <h1>Products</h1>
-        <img src="" />
         <Autocomplete
           id="country-select-demo"
           sx={{ width: 300, color:'red' }}
@@ -123,7 +127,8 @@ const handleSearchChange = () =>{
             <option value="sortltoh">Price low to high</option>
             <option value="sorthtol">Price high to low</option>
           </select>
-          {localStorage.getItem("admin")==='true' && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleShowProducts}>Show My Products</Button>}
+          {localStorage.getItem("admin")==='true' && productStatus==="allproduct" && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleShowMyProducts}>Show My Products</Button>}
+          {localStorage.getItem("admin")==='true' && productStatus==="myproduct" && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleShowAllProducts}>Show All Products</Button>}
           {localStorage.getItem("admin")==='true' && <Button variant="outlined" style={{ color: 'black', borderColor: 'black' }} onClick={handleClick}>Add Product</Button>}
         </div>
       </div>
@@ -133,8 +138,8 @@ const handleSearchChange = () =>{
               <Product product={product} admin = {localStorage.getItem("admin")}/>
             </div>
           ))}  
-        <Pagination totalProducts = {sortedProducts? sortedProducts?.length: 0} productsPerPage={productPerPage} setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
       </div>   
+      <Pagination totalProducts = {sortedProducts? sortedProducts?.length: 0} productsPerPage={productPerPage} setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
     </div>
   )
 }

@@ -28,6 +28,7 @@ export const fetchProductsAction = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const products = await fetchProducts(data);
+      console.log("fetched product is: ", products);
       // thunkAPI.dispatch(removeError());
       return products;
     } catch (error) {
@@ -41,10 +42,11 @@ export const updateProductAction = createAsyncThunk(
   'products/updateProducts',
   async (data, thunkAPI) => {
     try {
-      console.log("updateProductAction is called");
-      console.log("data is: ", data)
+      // console.log("updateProductAction is called");
+      // console.log("data is: ", data)
       const products = await updateProduct(data);
       // thunkAPI.dispatch(removeError());
+      console.log("aaaa", products);
       return products;
     } catch (error) {
       const { product } = error;
@@ -58,8 +60,8 @@ export const deleteProductAction = createAsyncThunk(
   'products/deleteProducts',
   async (data, thunkAPI) => {
     try {
-      console.log("deleteProductAction is called");
-      console.log("data is: ", data)
+      // console.log("deleteProductAction is called");
+      // console.log("data is: ", data)
       const products = await deleteProduct(data);
       // thunkAPI.dispatch(removeError());
       return products;
@@ -84,14 +86,17 @@ const productSlice = createSlice({
     builder.addCase(fetchProductsAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.products = action.payload;
+      console.log('fetchProductsAction succeeded');
     });
     builder.addCase(fetchProductsAction.rejected, (state, action) => {
       state.status = 'failed';
       state.products = action.payload;
+      console.log('fetchProductsAction failed');
     });
     builder.addCase(fetchProductsAction.pending, (state, action) => {
       state.status = 'pending';
       state.products = action.payload;
+      console.log('fetchProductsAction pending');
     });
     builder.addCase(createProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -106,6 +111,7 @@ const productSlice = createSlice({
     builder.addCase(updateProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.products.push(action.payload);
+      console.log('updateProductAction succeeded');
     });
     builder.addCase(updateProductAction.rejected, (state, action) => {
       state.status = 'failed';

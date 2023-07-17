@@ -31,14 +31,14 @@ function ProductDetail() {
       { product ? (
         <div className='productDetailContent'>
           <img className="detailImage"src={product.imageurl} alt="Apple Watch"/>
-          <div className='textContent'>
-            <h2>{product.productname}</h2>
-            <h3>${product.price}</h3>
+          <div className='textContent' style={{ paddingLeft:"60px", backgroundColor:"WhiteSmoke", width:"500px"}}>
+            <h1>{product.productname}</h1>
+            <h2>${product.price}</h2>
             <p>{product.description}</p>
-            <p> items remaining: {product.quantity}</p>
-            <div className='contentButton'>
+            <p> Items Remaining: {product.quantity}</p>
+            <div className='contentButton' style={{ marginTop:"80px"}}>
               <AddMinButton product={product}/>
-              <Button variant="outlined" onClick={()=> updateProduct(product)}>Edit</Button>
+              <Button variant="outlined" style={{ height: "40px", marginLeft:"60px"}} onClick={()=> updateProduct(product)}>Edit</Button>
             </div>
           </div>
         </div>

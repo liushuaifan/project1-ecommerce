@@ -12,7 +12,7 @@ function AddMinButton({product}) {
   const dispatch = useDispatch();
   const [cartValue, setcartValue] = useState(0);
   const { user } = useSelector(state => state.user);
-  // const { product } = useSelector(state => state.product);
+  const { products } = useSelector(state => state.product);
   const [fetchdata, setfetchdata] = useState({
     userId: user.id,
     productId: product._id
@@ -22,20 +22,22 @@ function AddMinButton({product}) {
 
   const AddtoCart = async  (product) => {
     
-    // console.log(product)
     if(localStorage.getItem(`product${product._id}`)==="0"){
       alert("Reach Maximun Quantity!");
       return;
     }
+    console.log("product._id:",product._id)
     await dispatch(updateProductAction({ 
       userId: user.id, 
       productId: product._id, 
-      quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity): localStorage.getItem(`product${product._id}`)-1,
+      // quantity: 20
+      // quantity:localStorage.getItem(`product${product._id}`)===null? localStorage.setItem(`product${product._id}`, product.quantity): localStorage.getItem(`product${product._id}`)-1,
      }))
     localStorage.setItem(`product${product._id}`, localStorage.getItem(`product${product._id}`)-1);
     
     
     fetchCart(fetchdata).then(dat=>{
+        console.log(products)
         if(dat[0] === undefined){
           setcartValue(1);
           const data = {
@@ -59,6 +61,7 @@ function AddMinButton({product}) {
             productId:product._id,
             userId: user.id
           };
+        
           updateCart(data)
         }
       } 
@@ -99,9 +102,9 @@ function AddMinButton({product}) {
 
   return (
     <div className="addminsbutton">
-      <Button variant="contained"  onClick={()=> AddtoCart(product)} style={{height: "60px"}}>Add</Button>
+      <Button variant="contained"  onClick={()=> AddtoCart(product)} style={{height: "40px"}}>Add</Button>
       <h2> {cartValue} </h2>
-      <Button variant="contained"  onClick={()=> MinuCart(product)}  style={{height: "60px"}}>Minus</Button>
+      <Button variant="contained"  onClick={()=> MinuCart(product)}  style={{height: "40px"}}>Minus</Button>
     </div>
   )
 }

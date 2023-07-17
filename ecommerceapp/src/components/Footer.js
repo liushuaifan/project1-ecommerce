@@ -3,7 +3,7 @@ import "./style/Footer.css";
 
 function Footer() {
   return (
-    <div className="main-footer">
+    <div className="main-footer" style={{marginTop:"50px"}}>
       <div className="container">
           <p style={{position:"absolute" ,top:"20%",left:"5%"}}> @2022 All rights reserved </p>
 

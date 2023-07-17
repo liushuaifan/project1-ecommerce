@@ -37,6 +37,7 @@ function ManageProduct() {
   }else if(Action==='update'){
     
     const handleSubmit = (data) => {
+      console.log("ProductId:",ProductId)
       dispatch(updateProductAction({ 
         userId: user.id, 
         productId: ProductId, 

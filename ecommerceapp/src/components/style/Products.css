@@ -1,5 +1,7 @@
 .productContent {
   margin: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .productGrid {

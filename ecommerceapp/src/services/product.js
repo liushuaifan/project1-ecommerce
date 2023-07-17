@@ -26,6 +26,7 @@ export const updateProduct = async ({
   productId
  }
   ) => {
+    console.log("entered productid is:", productId);
   return await apiCall({
     url: `/api/users/${userId}/products/${productId}`,
     method: 'PUT',
