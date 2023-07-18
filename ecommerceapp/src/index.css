@@ -73,6 +73,10 @@ label {
   padding: 0.25rem 0;
 }
 
+iframe {
+  display: none;
+}
+
 input {
   margin: 0.5rem 0;
   padding: 1rem;

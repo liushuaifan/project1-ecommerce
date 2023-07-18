@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createProductAction, updateProductAction } from '../app/productSlice';
 import CreateProductForm from "./CreateProductFrom";
 import UpdateProductForm from "./UpdateProductForm";
-
+import { fetchUserCart, createCart , updateCart, fetchCart, deleteCart } from '../services/cart';
 import './style/CreateProducts.css';
 
 function ManageProduct() {
@@ -17,6 +17,9 @@ function ManageProduct() {
   const { ProductId } = useParams();
   const Direction = location.state.Direction;
   const Action = location.state.Action;
+  console.log("user");
+  console.log(user);
+
   if(Action==='create'){
     const handleSubmit = (data) => {
       console.log("create data", data);
@@ -35,8 +38,24 @@ function ManageProduct() {
     };
     return <CreateProductForm onSubmit={handleSubmit}/>;
   }else if(Action==='update'){
-    
+
+  
     const handleSubmit = (data) => {
+
+      const datas = {
+        cartValue:1,
+        email:"chuwauser",
+        imageurl:data.imageurl,
+        price:data.price,
+        productname:data.productname,
+        productId: "64b5b6e86422ae1052c774ba",
+        userId: user.id
+      };
+
+      console.log(datas);
+
+      updateCart(datas);
+
       dispatch(updateProductAction({ 
         userId: user.id, 
         productId: ProductId, 

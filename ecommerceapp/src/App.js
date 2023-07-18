@@ -23,28 +23,34 @@ function App() {
         <Navbar />
         <div className="container">
 
-        <Routes>
+        {/* <Routes>
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/updatePassword" element={<UpdatePassWord />} />
-        </Routes>
+        </Routes> */}
 
         </div>
         
         <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/updatePassword" element={<UpdatePassWord />} />
           <Route path="/" element={<Products />} />
+          
           <Route path="/Product/:ProductId" element={<ProductDetail />} />
+          <Route path="/Cart" element={<Cart />} />
           <Route element={<AuthLayout />}>
             <Route path="/ManageProduct/Create" element={<ManageProduct />} />
             <Route path="/ManageProduct/Update/:ProductId" element={<ManageProduct />} />
           </Route>
           
-          <Route path="/Cart" element={<Cart />} />
 
         </Routes>
+{/* 
         <Routes>
-        <Route path="*" component={NotFound} />
-        </Routes>
+       
+        </Routes> */}
         {/* <Footer /> */}
       </BrowserRouter>
 

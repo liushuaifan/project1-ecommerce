@@ -12,7 +12,7 @@ import { fetchUserCart, createCart , updateCart, fetchCart, deleteCart } from '.
 import "./style/cart.css";
 
 const style = {
-  position: 'absolute',
+  position: 'relative',
   top: '50%',
   left: '50%',
   transform: 'translate(70%, -60%)',
@@ -177,7 +177,7 @@ export default function BasicModal() {
           {products?.length > 0 && products.map((product, index) => (
             <div key={index} style={{width:"200px" , height:"80px"}}>
               <img src={product.imageurl} alt="pend" style={{width: "70px",height:"70px", position:"relative",top:"20px"}}/>
-              <h2 className='cartName' style={{color:"black", position:"relative",top:"-78px",left:"65%"}}>{product.productname}</h2>
+              <h2 className='cartName' style={{color:"black", position:"relative",top:"-78px",left:"65%",fontSize:"20px"} }>{product.productname}</h2>
               <h3 className='cartPrice' style={{color:"blue",position:"relative",top:"-118px",left:"190%"}}>{product.price}</h3>
               
               

@@ -1,8 +1,11 @@
 import React from "react";
+import { useState, useLayoutEffect, useEffect} from 'react';
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProductAction } from '../app/productSlice';
 import ProductForm from "./ProductForm";
+import { fetchUserCart, createCart , updateCart, fetchCart, deleteCart } from '../services/cart';
+
 
 import './style/CreateProducts.css';
 
@@ -16,7 +19,14 @@ function UpdateProducts() {
   const { products } = useSelector(state => state.product);
   const { user } = useSelector(state => state.user);
   const { ProductId } = useParams();
+
+
+
   const handleSubmit = (data) => {
+    console.log("user info")
+    console.log(user);
+
+
     dispatch(updateProductAction({ 
       userId: user.id, 
       productId: ProductId, 
@@ -27,6 +37,9 @@ function UpdateProducts() {
       imageurl: data.imageurl
      })).then(
       () => {
+
+        
+
         if(extraParam==='productdetail'){
           navigate(`/Product/${ProductId}`);
         }else if(extraParam==='home')
