@@ -4,7 +4,7 @@ import './style/SubmitForm.css'
 
 export default function CreateProductForm({ onSubmit }) {
 
-  const [imageurl, setImageUrl] = useState('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo0SzFXvMAOqu2uWTFKapiGAjuq-QZBPW-dA&usqp=CAU'); 
+  const [imageurl, setImageUrl] = useState(''); 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const imageUrl = URL.createObjectURL(file);
@@ -15,7 +15,13 @@ export default function CreateProductForm({ onSubmit }) {
   return (
     <div className='submitform'>
       <h1>Create Product</h1>
-      <Form className='forms' layout="vertical" onFinish={(data) => onSubmit({ ...data, imageurl })}>
+      <Form className='forms' layout="vertical" onFinish={(data) => {
+         if (imageurl !== '') {
+          onSubmit({ ...data, imageurl });
+        } else {
+          onSubmit(data);
+      }
+      } }>
         <Form.Item label="Product Name" name="productname" rules={[{required: true}]}>
           <Input.TextArea rows={1} />
         </Form.Item>

@@ -110,8 +110,11 @@ const productSlice = createSlice({
     });
     builder.addCase(updateProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.products.push(action.payload);
-      console.log('updateProductAction succeeded');
+      console.log(state.products)
+      console.log(action.payload)
+      state.products = state.products.map(product =>
+        product._id === action.payload._id ? action.payload : product
+      );
     });
     builder.addCase(updateProductAction.rejected, (state, action) => {
       state.status = 'failed';
@@ -121,7 +124,6 @@ const productSlice = createSlice({
     });
     builder.addCase(deleteProductAction.fulfilled, (state, action) => {
       state.status = 'succeeded';
-      state.products.push(action.payload);
     });
     builder.addCase(deleteProductAction.rejected, (state, action) => {
       state.status = 'failed';

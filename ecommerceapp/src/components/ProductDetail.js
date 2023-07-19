@@ -37,8 +37,10 @@ function ProductDetail() {
             <p>{product.description}</p>
             <p> Items Remaining: {product.quantity}</p>
             <div className='contentButton' style={{ marginTop:"80px"}}>
-              <AddMinButton product={product}/>
-              <Button variant="outlined" style={{ height: "40px", marginLeft:"60px"}} onClick={()=> updateProduct(product)}>Edit</Button>
+              {localStorage.getItem("login")==='true' && <AddMinButton product={product}/>}
+              {localStorage.getItem("login")==='true' 
+                && localStorage.getItem("admin")==='true' 
+                && <Button variant="outlined" style={{ height: "40px", marginLeft:"60px"}} onClick={()=> updateProduct(product)}>Edit</Button>}
             </div>
           </div>
         </div>
